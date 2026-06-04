@@ -1,0 +1,43 @@
+# Logs de erro e sistema
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependências (Nunca devem ir para o GitHub)
+node_modules/
+/jspm_packages/
+
+# Pastas de Build / Compilação (O comando npm run deploy gera isso na hora, não precisa subir)
+dist/
+dist-ssr/
+build/
+.cache/
+.parcel-cache/
+
+# Arquivos de ambiente e chaves secretas (Segurança)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env.local
+
+# Arquivos temporários e do sistema operacional
+.DS_Store
+Thumbs.db
+*.bak
+*.swp
+*.tmp
+
+# Configurações locais de IDEs (VS Code, JetBrains, etc.)
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
