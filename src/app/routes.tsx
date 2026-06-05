@@ -1,5 +1,5 @@
 // 1. Altere a importação para incluir o createHashRouter
-import { createHashRouter } from "react-router"; 
+import { createHashRouter } from "react-router";
 import { Layout } from "./components/Layout";
 import { HomePage } from "./components/HomePage";
 import { ProductsPage } from "./components/ProductsPage";
@@ -20,7 +20,7 @@ import { AdminAnalyticsPage } from "./components/AdminAnalyticsPage";
 export const router = createHashRouter([
   {
     path: "/",
-    Component: Layout,
+    element: <Layout />,
     children: [
       { index: true, Component: HomePage },
       { path: "produtos", Component: ProductsPage },
