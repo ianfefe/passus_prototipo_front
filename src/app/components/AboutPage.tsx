@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, Sparkles, Heart } from "lucide-react";
 import { useState } from "react";
+import logoPassus from "@/assets/passus.jpg"; // O "@" aponta direto para a pasta src que configuramos no alias!
 
 export function AboutPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -47,7 +48,7 @@ export function AboutPage() {
             {/* Logo flutuante com borda dupla divertida */}
             <div className="w-28 h-28 rounded-full bg-[#F6EFE5] flex items-center justify-center shadow-2xl border-4 border-[#1E3A5F] transform hover:rotate-12 transition-transform duration-300">
               <img 
-                src="/passus.jpg" 
+                src={logoPassus}
                 alt="PASSUS" 
                 className="w-20 h-20 object-contain rounded-full"
                 onError={(e) => {

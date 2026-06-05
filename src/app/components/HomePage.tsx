@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { Sparkles, Star, Heart, ArrowRight } from "lucide-react";
+import logoPassus from "@/assets/passus.jpg"; // O "@" aponta direto para a pasta src que configuramos no alias!
 
 export function HomePage() {
   const featuredProducts = [
@@ -52,9 +53,9 @@ export function HomePage() {
                 {/* Logo real do projeto com uma sombra bem gordinha e acolhedora */}
                 <div className="w-44 h-44 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-2xl border-4 border-[#1E3A5F] transform hover:scale-105 hover:rotate-6 transition-transform duration-300">
                   <img 
-                    src="/passus.jpg" 
+                    src={logoPassus}
                     alt="PASSUS" 
-                    className="w-28 h-28 object-contain rounded-full"
+                    className="w-36 h-36 object-contain rounded-full"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
                       if(e.currentTarget.nextSibling) (e.currentTarget.nextSibling as HTMLElement).style.display = 'block';

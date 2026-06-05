@@ -35,7 +35,7 @@ export const router = createHashRouter([
       { path: "cadastro", Component: RegisterPage },
       { path: "admin/produtos", Component: AdminProductsPage },
       { path: "admin/produtos/:id", Component: AdminProductDetailPage },
-      { path: "admin/vendas", Component: AdminAnalyticsPage },
+      { path: "admin/vendas", Component: AdminAnalyticsPage }
     ],
   },
 ]);

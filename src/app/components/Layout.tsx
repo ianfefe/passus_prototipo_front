@@ -3,6 +3,7 @@ import { Search, ShoppingCart, User, Heart, Mail, MapPin, Phone, Sparkles } from
 import { useCart } from "../context/CartContext";
 import { useState, useEffect } from "react"; // Garanta que o useEffect está importado
 import { ArrowUp } from "lucide-react"; // Importe a seta para cima
+import logoPassus from "@/assets/passus.jpg"; // O "@" aponta direto para a pasta src que configuramos no alias!
 
 export function Layout() {
   const navigate = useNavigate();
@@ -54,10 +55,19 @@ export function Layout() {
           <Link to="/" className="flex items-center gap-2 flex-shrink-0 hover:scale-105 transform transition-transform duration-300">
             <div className="w-12 h-12 bg-[#F5F2EB] rounded-full flex items-center justify-center p-1 shadow-inner border-2 border-[#1E3A5F]">
               <img 
+<<<<<<< HEAD
                 src="./assets/passus.jpg" 
+=======
+                src={logoPassus} 
+>>>>>>> e1c3fb8 (Corrige caminho da logo)
                 alt="PASSUS" 
-                className="w-full h-full object-contain rounded-full" 
+                className="w-12 h-12 object-contain rounded-full"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  if(e.currentTarget.nextSibling) (e.currentTarget.nextSibling as HTMLElement).style.display = 'block';
+                }}
               />
+              <span className="text-3xl hidden">🧦</span>
             </div>
             <span className="font-black tracking-wider text-xl text-[#1E3A5F] hidden sm:inline">
               PASSUS

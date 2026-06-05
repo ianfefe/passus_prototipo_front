@@ -1,8 +1,12 @@
 import { defineConfig } from 'vite'
 import path from 'path'
+import { fileURLToPath } from 'url' // 1. Importa os métodos de URL necessários para ESM
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
+// 2. Cria uma alternativa segura ao __dirname para projetos estruturados em "type": "module"
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 function figmaAssetResolver() {
   return {
@@ -17,21 +21,21 @@ function figmaAssetResolver() {
 }
 
 export default defineConfig({
+  // Base do repositório mapeada perfeitamente pro GitHub Pages
   base: '/passus_prototipo_front/',
+  
   plugins: [
     figmaAssetResolver(),
-    // The React and Tailwind plugins are both required for Make, even if
-    // Tailwind is not being actively used – do not remove them
     react(),
     tailwindcss(),
   ],
   resolve: {
     alias: {
-      // Alias @ to the src directory
+      // O apelido @ agora vai funcionar perfeitamente sem quebrar no ESM
       '@': path.resolve(__dirname, './src'),
     },
   },
 
-  // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
+  // Suporte a importações brutas
   assetsInclude: ['**/*.svg', '**/*.csv'],
 })

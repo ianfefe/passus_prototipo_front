@@ -11,12 +11,19 @@ lerna-debug.log*
 node_modules/
 /jspm_packages/
 
-# Pastas de Build / Compilação (O comando npm run deploy gera isso na hora, não precisa subir)
+# ESPECÍFICO DO VITE (Cache de desenvolvimento local - IMPORTANTE)
+.vite/
+
+# Pastas de Build / Compilação
 dist/
 dist-ssr/
 build/
 .cache/
 .parcel-cache/
+
+# TypeScript (Arquivos de histórico de compilação local que o Vite/TSC geram)
+*.tsbuildinfo
+*.tsconfig.tsbuildinfo
 
 # Arquivos de ambiente e chaves secretas (Segurança)
 .env
