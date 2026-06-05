@@ -56,10 +56,14 @@ export function Layout() {
             <div className="w-12 h-12 bg-[#F5F2EB] rounded-full flex items-center justify-center p-1 shadow-inner border-2 border-[#1E3A5F]">
               <img 
 <<<<<<< HEAD
+<<<<<<< HEAD
                 src="./assets/passus.jpg" 
 =======
                 src={logoPassus} 
 >>>>>>> e1c3fb8 (Corrige caminho da logo)
+=======
+                src="passus.jpg" 
+>>>>>>> f5d12f0ad08e2484725aacdc1bf296fd1b8bc9ef
                 alt="PASSUS" 
                 className="w-12 h-12 object-contain rounded-full"
                 onError={(e) => {
