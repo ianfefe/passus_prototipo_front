@@ -41,7 +41,7 @@ export function Layout() {
       <header className="bg-white/95 backdrop-blur-md border-b border-stone-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3 flex-shrink-0 hover:opacity-90 transition-opacity">
-            <img src={logoPassus} alt="PASSUS" className="w-9 h-9 object-contain rounded-xl border border-stone-200 shadow-sm" />
+            <img src={logoPassus} alt="PASSUS" className="w-10.5 h-10.5 object-contain rounded-full border border-stone-200 shadow-sm" />
             <span className="font-extrabold tracking-tight text-xl bg-gradient-to-r from-[#1E3A5F] to-[#3B82F6] bg-clip-text text-transparent">
               PASSUS
             </span>

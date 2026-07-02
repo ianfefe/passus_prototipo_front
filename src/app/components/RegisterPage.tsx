@@ -23,6 +23,15 @@ export function RegisterPage() {
           </div>
 
           <div className="space-y-1.5">
+            <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider">CPF</label>
+            <input
+              type="text"
+              placeholder="000.000.000-00"
+              className="w-full px-4 py-2.5 rounded-2xl border border-orange-100 bg-stone-50/60 text-sm focus:border-[#3B82F6] focus:bg-white transition-all outline-none font-medium"
+            />
+          </div>
+
+          <div className="space-y-1.5">
             <label className="block text-xs font-bold text-stone-600 uppercase tracking-wider">E-mail</label>
             <input
               type="email"

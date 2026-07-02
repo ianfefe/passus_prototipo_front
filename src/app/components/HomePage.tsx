@@ -23,12 +23,19 @@ export function HomePage() {
         <section className="bg-white rounded-[2.5rem] shadow-md shadow-stone-200/60 border border-stone-200 overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-12">
             
-            <div className="md:col-span-5 bg-[#F8F6F0] flex items-center justify-center p-10 border-b md:border-b-0 md:border-r border-stone-200 relative overflow-hidden">
-              <img src={meia1} alt="" className="absolute w-72 h-72 opacity-[0.07] -bottom-10 -right-10 pointer-events-none rotate-12" />
+            <div className="md:col-span-5 bg-gradient-to-br from-[#3B82F6]/15 to-[#F07147]/15 flex items-center justify-center p-10 border-b md:border-b-0 md:border-r border-stone-200 relative overflow-hidden">
               <div className="text-center relative group">
-                <div className="absolute -inset-2 bg-gradient-to-r from-[#F07147] to-[#3B82F6] rounded-3xl blur-xl opacity-10"></div>
-                <div className="w-44 h-44 bg-white rounded-3xl flex items-center justify-center mx-auto shadow-md border border-stone-200 relative">
-                  <img src={logoPassus} alt="PASSUS" className="w-32 h-32 object-contain" />
+                <div className="w-44 h-44 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-2xl border-4 border-[#1E3A5F] transform hover:scale-105 hover:rotate-6 transition-transform duration-300">
+                  <img 
+                    src={logoPassus}
+                    alt="PASSUS" 
+                    className="w-42 h-42 object-contain rounded-full"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      if(e.currentTarget.nextSibling) (e.currentTarget.nextSibling as HTMLElement).style.display = 'block';
+                    }}
+                  />
+                  <span className="text-7xl hidden">🧦</span>
                 </div>
                 <p className="text-xs font-bold text-stone-500 mt-4 tracking-wide">Moda e Transformação Humana</p>
               </div>
