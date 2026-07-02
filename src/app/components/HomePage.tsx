@@ -1,166 +1,137 @@
 import { Link } from "react-router";
-import { Sparkles, Star, Heart, ArrowRight } from "lucide-react";
-import logoPassus from "@/assets/passus.jpg"; // O "@" aponta direto para a pasta src que configuramos no alias!
+import { Sparkles, Star, Heart, ArrowRight, Gift, ShoppingBag } from "lucide-react";
+import logoPassus from "@/assets/passus.jpg";
+
+import meia1 from "@/assets/meia1.png";
+  import meia2 from "@/assets/meia2.png";
+  import meia3 from "@/assets/meia3.png";
 
 export function HomePage() {
   const featuredProducts = [
-    {
-      id: 1,
-      name: "Meia Cano Alto Premium",
-      price: "R$ 35,00",
-      rotation: -1.5,
-      color: "#4A90E2" // Azul
-    },
-    {
-      id: 2,
-      name: "Meia Esportiva Pro",
-      price: "R$ 40,00",
-      rotation: 1.5,
-      color: "#F5A623" // Amarelo
-    },
-    {
-      id: 3,
-      name: "Meia Social Elegance",
-      price: "R$ 30,00",
-      rotation: -1,
-      color: "#7ED321" // Verde
-    },
+    { id: 1, name: "Meia Cano Alto Premium", price: "R$ 35,00", image: meia2 },
+    { id: 2, name: "Meia Esportiva Pro", price: "R$ 40,00", image: meia1 },
+    { id: 3, name: "Meia Social Elegance", price: "R$ 30,00", image: meia3 },
   ];
 
   return (
-    // Fundo creme com manchas de aquarela lúdicas para manter a unidade visual do app
-    <div className="min-h-screen bg-[#F5F2EB] relative overflow-hidden font-sans pb-16 selection:bg-[#F5A623]/30">
-      
-      {/* Formas lúdicas e coloridas no fundo (Nuvens / Aquarela) */}
-      <div className="absolute top-10 -left-16 w-96 h-96 bg-[#4A90E2]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-[40%] -right-20 w-[600px] h-[600px] bg-[#F5A623]/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-80 h-80 bg-[#7ED321]/25 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto px-6 py-12 relative z-10">
+    <div className="font-sans pb-16 selection:bg-[#F07147]/10 bg-[#FBF9F4]">
+      <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
         
-        {/* Banner Principal / Hero - Redesenhado como um grande livro de recados amigável */}
-        <section className="bg-white rounded-[40px] shadow-2xl overflow-hidden mb-20 border-4 border-[#1E3A5F] relative transform -rotate-0.5">
-          {/* Elementos decorativos fofos nas pontas */}
-          <div className="absolute -top-3 -right-3 w-12 h-12 bg-[#F5A623] rounded-full shadow-md animate-pulse" />
-          <div className="absolute -bottom-3 -left-3 w-10 h-10 bg-[#7ED321] rounded-full shadow-md" />
-
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            {/* Lado Esquerdo - O selo redondo do projeto */}
-            <div className="bg-gradient-to-br from-[#4A90E2]/15 to-[#7ED321]/15 h-96 flex items-center justify-center p-8 relative border-b-4 md:border-b-0 md:border-r-4 border-dashed border-[#1E3A5F]/30">
-              <Sparkles className="absolute top-8 left-8 text-[#F5A623] w-5 h-5 animate-pulse" />
-              
-              <div className="text-center">
-                {/* Logo real do projeto com uma sombra bem gordinha e acolhedora */}
-                <div className="w-44 h-44 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-2xl border-4 border-[#1E3A5F] transform hover:scale-105 hover:rotate-6 transition-transform duration-300">
-                  <img 
-                    src={logoPassus}
-                    alt="PASSUS" 
-                    className="w-36 h-36 object-contain rounded-full"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      if(e.currentTarget.nextSibling) (e.currentTarget.nextSibling as HTMLElement).style.display = 'block';
-                    }}
-                  />
-                  <span className="text-7xl hidden">🧦</span>
+        {/* HERO BANNER */}
+        <section className="bg-gradient-to-br from-white via-[#FDFBF7] to-[#F5EBE1] rounded-3xl shadow-sm border border-orange-100/40 overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-12">
+            
+            {/* Lado Esquerdo - Box da Imagem Principal / Logo */}
+            <div className="md:col-span-5 bg-[#F4EFE6] flex items-center justify-center p-10 border-b md:border-b-0 md:border-r border-orange-100/40 relative overflow-hidden">
+              {/* Imagem de fundo sutil de produto para preencher o branco */}
+              <img src="/meia1.png" alt="" className="absolute w-72 h-72 opacity-10 -bottom-10 -right-10 pointer-events-none rotate-12" />
+              <div className="text-center relative group">
+                <div className="absolute -inset-2 bg-gradient-to-r from-[#F07147] to-[#3B82F6] rounded-3xl blur-xl opacity-15"></div>
+                <div className="w-44 h-44 bg-white rounded-3xl flex items-center justify-center mx-auto shadow-md border border-orange-100 relative">
+                  <img src={logoPassus} alt="PASSUS" className="w-32 h-32 object-contain" />
                 </div>
-                <p className="text-[#1E3A5F] font-black text-sm uppercase tracking-widest bg-white px-4 py-1.5 rounded-full shadow-sm border border-gray-100">
-                  🚀 Projeto Social em Ação
-                </p>
+                <p className="text-xs font-bold text-stone-500 mt-4 tracking-wide">Moda e Transformação Humana</p>
               </div>
             </div>
 
-            {/* Lado Direito - Mensagem de Impacto Calorosa */}
-            <div className="flex flex-col justify-center p-8 md:p-12 bg-white relative">
-              <Heart className="absolute top-6 right-8 text-[#F07147] w-5 h-5 animate-bounce" />
+            {/* Lado Direito - Conteúdo e Manifesto */}
+            <div className="md:col-span-7 flex flex-col justify-center p-8 md:p-12 space-y-5">
+              <div className="inline-flex items-center gap-1.5 text-[#F07147] text-xs font-bold uppercase tracking-wider bg-orange-50 px-3 py-1 rounded-xl w-fit border border-orange-100">
+                <Heart className="w-3.5 h-3.5 fill-[#F07147] stroke-none" /> Tecendo Autonomia e Afeto
+              </div>
               
-              <h1 className="text-3xl md:text-4xl font-black text-[#1E3A5F] leading-tight mb-4">
-                Transformando vidas através de meias coloridas! 🎨
+              <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+                <span className="bg-gradient-to-r from-[#1E3A5F] via-[#2A52BE] to-[#3B82F6] bg-clip-text text-transparent">
+                  Roupas que vestem o corpo e acolhem histórias.
+                </span>
               </h1>
-              <p className="text-gray-700 leading-relaxed mb-4 font-semibold text-base">
-                O PASSUS é um projeto social que gera oportunidades e impacto positivo de verdade através da produção de meias personalizadas de alta qualidade.
+              
+              <p className="text-stone-600 leading-relaxed text-sm md:text-base font-medium">
+                Cada par de meias PASSUS carrega a dedicação de pessoas que estão reconstruindo suas trajetórias através da capacitação têxtil profissional e do comércio justo.
               </p>
-              <p className="text-gray-600 leading-relaxed text-sm">
-                Cada par que você escolhe contribui diretamente para workshops de arte infantis, capacitação profissional e geração de renda em comunidades vulneráveis. Vamos dar esse passo juntos? ❤️
+              
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Link to="/produtos" className="bg-[#F07147] hover:bg-[#d85f37] text-white px-6 py-3 rounded-2xl font-bold text-sm transition-all shadow-md flex items-center gap-2">
+                  <ShoppingBag className="w-4 h-4" /> Conhecer Nossa Produção
+                </Link>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* BLOCO DE IMPACTO SOCIAL */}
+        <section className="bg-amber-50/60 border border-amber-200/50 rounded-3xl p-8 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+          <div className="flex gap-4 items-center md:col-span-2">
+            <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center border border-amber-200 text-[#F07147] shrink-0 shadow-sm">
+              <Gift className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="font-extrabold text-stone-900 text-lg">Por que sua escolha importa?</h3>
+              <p className="text-stone-600 text-xs md:text-sm mt-0.5 leading-relaxed font-medium">
+                O PASSUS é uma iniciativa sem fins lucrativos. Todo o resultado financeiro obtido com as vendas é integralmente reinvestido em maquinários e capacitação para os polos produtivos.
               </p>
             </div>
           </div>
+          <div className="bg-white rounded-2xl p-4 border border-amber-200/60 text-center shadow-sm">
+            <span className="block text-2xl font-black text-[#1E3A5F]">100%</span>
+            <span className="text-[11px] uppercase tracking-wider font-bold text-stone-400">Destinação Social</span>
+          </div>
         </section>
 
-        {/* Seção de Vitrine de Produtos */}
-        <section>
-          {/* Título de Seção Divertido */}
-          <div className="flex items-center gap-3 mb-12">
-            <h2 className="text-[#1E3A5F] text-2xl md:text-3xl font-black flex items-center gap-2 flex-shrink-0">
-              <span className="text-3xl">🛍️</span>
-              Produtos em Destaque
+        {/* VITRINE DE PRODUTOS DESTACADOS COM FOTO */}
+        <section className="space-y-8">
+          <div className="flex items-center justify-between border-b border-orange-100/60 pb-4">
+            <h2 className="text-xl md:text-2xl font-black text-stone-900 tracking-tight">
+              Modelos Feitos com Amor
             </h2>
-            {/* Linha pontilhada estilosa simulando costura de meia */}
-            <div className="flex-1 border-b-4 border-dashed border-[#F5A623]/60 rounded-full" />
+            <Link to="/produtos" className="text-sm font-bold text-[#F07147] hover:text-[#d85f37] flex items-center gap-1 transition-colors">
+              Ver Coleção Completa <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
 
-          {/* Grid de Produtos com Rotações Divertidas */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-2">
-            {featuredProducts.map((product) => {
-              // Converte o valor de rotation para a classe correspondente do Tailwind
-              const rotationClass = product.rotation < 0 ? "-rotate-2" : "rotate-2";
-              
-              return (
-                <Link
-                  key={product.id}
-                  to={`/produto/${product.id}`}
-                  className="group"
-                >
-                  {/* Card com borda colorida baseada no produto e rotação lúdica */}
-                  <div 
-                    className={`bg-white rounded-[32px] p-5 shadow-2xl transition-all duration-300 hover:rotate-0 hover:-translate-y-2 border-4 ${rotationClass}`}
-                    style={{ borderColor: product.color }}
-                  >
-                    {/* Área do Produto (Fundo com costura pontilhada) */}
-                    <div 
-                      className="w-full h-60 rounded-2xl flex items-center justify-center mb-4 border-4 border-dashed transition-colors duration-300 group-hover:bg-white"
-                      style={{ 
-                        backgroundColor: `${product.color}10`,
-                        borderColor: `${product.color}40`
-                      }}
-                    >
-                      <span className="text-8xl transform group-hover:scale-115 group-hover:rotate-12 transition-all duration-300 drop-shadow-sm">
-                        🧦
-                      </span>
-                    </div>
-                    
-                    {/* Detalhes do Produto - Caixa fofa interna */}
-                    <div className="bg-[#F5F2EB]/70 rounded-xl p-4 text-center border border-gray-100/50 group-hover:bg-[#F5F2EB] transition-colors">
-                      <h3 className="text-[#1E3A5F] mb-1.5 font-black text-lg tracking-wide group-hover:text-[#4A90E2] transition-colors">
-                        {product.name}
-                      </h3>
-                      <p className="text-[#F07147] font-black text-2xl mb-3 drop-shadow-sm">
-                        {product.price}
-                      </p>
-                      
-                      {/* Tag de botão de clique amigável */}
-                      <span 
-                        className="inline-flex items-center gap-1 text-xs font-black uppercase tracking-wider text-white px-4 py-1.5 rounded-full shadow-md transition-all group-hover:scale-105"
-                        style={{ backgroundColor: product.color || product.color }}
-                      >
-                        Ver Detalhes <ArrowRight className="w-3 h-3 stroke-[3]" />
-                      </span>
-                    </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            {featuredProducts.map((product) => (
+              <Link
+                key={product.id}
+                to={`/produto/${product.id}`}
+                className="group bg-white rounded-3xl border border-orange-100/30 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col hover:-translate-y-1"
+              >
+                {/* Imagem do Produto real */}
+                <div className="w-full h-56 bg-[#F4EFE6] flex items-center justify-center relative p-4 overflow-hidden border-b border-stone-100">
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="w-full h-full object-contain drop-shadow-md transform group-hover:scale-105 transition-transform duration-300" 
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      const parent = e.currentTarget.parentElement;
+                      if (parent) {
+                        const label = document.createElement('span');
+                        label.className = 'text-stone-400 font-bold text-xs bg-white/80 px-2 py-1 rounded-lg border border-orange-100';
+                        label.innerText = '🧦 Visualizar Meia';
+                        parent.appendChild(label);
+                      }
+                    }}
+                  />
+                </div>
+                
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <div>
+                    <h3 className="text-stone-800 font-extrabold text-base group-hover:text-[#F07147] transition-colors">
+                      {product.name}
+                    </h3>
+                    <p className="text-[#1E3A5F] font-black text-lg mt-0.5">{product.price}</p>
                   </div>
-                </Link>
-              );
-            })}
+                  
+                  <div className="w-full py-2.5 bg-white text-[#1E3A5F] group-hover:bg-[#1E3A5F] group-hover:text-white border border-[#1E3A5F] text-center font-bold text-xs uppercase tracking-wider rounded-2xl transition-all shadow-sm">
+                    Ver de Perto
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
-
-        {/* Rodapé Interno da Home - Pequeno convite extra */}
-        <div className="text-center mt-20">
-          <div className="inline-block bg-white rounded-2xl px-6 py-3 shadow-md border-2 border-dashed border-[#7ED321] transform rotate-1">
-            <p className="text-[#1E3A5F] font-bold text-sm flex items-center gap-2">
-              <Star className="w-4 h-4 text-[#F5A623] fill-[#F5A623]" /> 
-              Cada par de meias comprado apoia diretamente uma criança artista! 🎨
-            </p>
-          </div>
-        </div>
 
       </div>
     </div>

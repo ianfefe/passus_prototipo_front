@@ -1,41 +1,43 @@
-// 1. Altere a importação para incluir o createHashRouter
-import { createHashRouter } from "react-router";
+import { createBrowserRouter } from "react-router"; // ou 'react-router-dom' dependendo da sua versão
 import { Layout } from "./components/Layout";
 import { HomePage } from "./components/HomePage";
 import { ProductsPage } from "./components/ProductsPage";
-import { AboutPage } from "./components/AboutPage";
 import { ProductDetailPage } from "./components/ProductDetailPage";
-import { DirectCheckoutPage } from "./components/DirectCheckoutPage";
 import { CartPage } from "./components/CartPage";
-import { CheckoutPage } from "./components/CheckoutPage";
-import { OtherProjectsPage } from "./components/OtherProjectsPage";
+import { CheckoutPage } from "./components/CheckoutPage"; // Garanta este import
 import { JoinPage } from "./components/JoinPage";
+import { AboutPage } from "./components/AboutPage";
 import { LoginPage } from "./components/LoginPage";
 import { RegisterPage } from "./components/RegisterPage";
+import { OtherProjectsPage } from "./components/OtherProjectsPage";
+import { AdminAnalyticsPage } from "./components/AdminAnalyticsPage";
 import { AdminProductsPage } from "./components/AdminProductsPage";
 import { AdminProductDetailPage } from "./components/AdminProductDetailPage";
-import { AdminAnalyticsPage } from "./components/AdminAnalyticsPage";
 
-// 2. Mude o nome da função aqui para createHashRouter
-export const router = createHashRouter([
+export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <Layout />, // O Layout envelopa as páginas estruturalmente
     children: [
-      { index: true, Component: HomePage },
-      { path: "produtos", Component: ProductsPage },
-      { path: "sobre", Component: AboutPage },
-      { path: "produto/:id", Component: ProductDetailPage },
-      { path: "checkout-direto/:id", Component: DirectCheckoutPage },
-      { path: "carrinho", Component: CartPage },
-      { path: "pagamento", Component: CheckoutPage },
-      { path: "outros-projetos", Component: OtherProjectsPage },
-      { path: "participar", Component: JoinPage },
-      { path: "login", Component: LoginPage },
-      { path: "cadastro", Component: RegisterPage },
-      { path: "admin/produtos", Component: AdminProductsPage },
-      { path: "admin/produtos/:id", Component: AdminProductDetailPage },
-      { path: "admin/vendas", Component: AdminAnalyticsPage }
+      { path: "", element: <HomePage /> },
+      { path: "produtos", element: <ProductsPage /> },
+      { path: "produto/:id", element: <ProductDetailPage /> },
+      { path: "carrinho", element: <CartPage /> },
+      
+      /* === CORREÇÃO AQUI === */
+      /* Certifique-se de que o path seja exatamente "checkout" */
+      { path: "checkout", element: <CheckoutPage /> }, 
+      
+      { path: "participar", element: <JoinPage /> },
+      { path: "sobre", element: <AboutPage /> },
+      { path: "login", element: <LoginPage /> },
+      { path: "cadastro", element: <RegisterPage /> },
+      { path: "outros-projetos", element: <OtherProjectsPage /> },
+      
+      /* Rotas do painel administrativo */
+      { path: "admin/analytics", element: <AdminAnalyticsPage /> },
+      { path: "admin/produtos", element: <AdminProductsPage /> },
+      { path: "admin/produto/:id", element: <AdminProductDetailPage /> },
     ],
   },
 ]);

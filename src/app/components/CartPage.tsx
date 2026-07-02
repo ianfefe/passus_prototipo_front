@@ -1,144 +1,139 @@
+import { useState } from "react";
 import { Link } from "react-router";
-import { Trash2, Heart, Sparkles, ShoppingBag } from "lucide-react";
+import { Trash2, Heart, ArrowRight, ShieldCheck, ArrowLeft } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 export function CartPage() {
-  const { items, removeFromCart } = useCart();
+  const context = useCart();
+  const [etapa, setEtapa] = useState<"carrinho" | "checkout">("carrinho");
+  
+  const cartItems = context?.cartItems || context?.items || [];
+  const removeFromCart = context?.removeFromCart || (() => {});
 
-  const cartItems = items.length > 0 ? items : [
-    { id: "1", name: "Meia Cano Alto Premium", quantity: 2, price: 25.0, color: "#4A90E2" },
-    { id: "2", name: "Meia Esportiva Pro", quantity: 1, price: 35.0, color: "#F5A623" },
-    { id: "3", name: "Meia Social Elegance", quantity: 3, price: 30.0, color: "#7ED321" },
+  const displayItems = cartItems.length > 0 ? cartItems : [
+    { id: 1, name: "Meia Cano Alto Premium", price: 35.00, quantity: 2 },
+    { id: 2, name: "Meia Esportiva Pro", price: 40.00, quantity: 1 }
   ];
 
-  const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
-  const shipping = 15.0;
-  const total = subtotal + shipping;
+  const total = displayItems.reduce((acc, item) => acc + (item.price * (item.quantity || 1)), 0);
 
-  return (
-    <div className="min-h-screen bg-[#F5F2EB] relative overflow-hidden font-sans pb-16">
-      
-      {/* Aquarelas de fundo */}
-      <div className="absolute top-10 -left-16 w-96 h-96 bg-[#4A90E2]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-20 -right-16 w-96 h-96 bg-[#7ED321]/15 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto px-6 py-12 relative z-10">
-        
-        <h1 className="text-[#1E3A5F] text-3xl font-black mb-8 flex items-center gap-3">
-          <span className="text-4xl">🛒</span> Seu Sacolão de Compras
-        </h1>
-
-        {/* Bloco de impacto social - Estilo "Painel Escolar" */}
-        <div className="bg-white rounded-[32px] p-6 mb-10 shadow-2xl border-4 border-[#7ED321] relative overflow-hidden transform -rotate-0.5">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-[#7ED321]/5 rounded-bl-[80px]" />
-          <h3 className="text-[#1E3A5F] font-black text-xl mb-4 flex items-center gap-2">
-            <Heart className="text-[#F07147] w-6 h-6 fill-[#F07147] animate-pulse" />
-            Você Está Fazendo a Diferença!
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-700 font-bold text-sm">
-            <div className="bg-[#7ED321]/10 p-4 rounded-2xl text-center border-2 border-dashed border-[#7ED321]/30">
-              <div className="text-4xl mb-1">👨‍👩‍👧</div>
-              <p><span className="text-[#7ED321] font-black text-base">5 famílias</span> apoiadas com esta compra</p>
-            </div>
-            <div className="bg-[#4A90E2]/10 p-4 rounded-2xl text-center border-2 border-dashed border-[#4A90E2]/30">
-              <div className="text-4xl mb-1">🎨</div>
-              <p><span className="text-[#4A90E2] font-black text-base">12 crianças</span> participando das oficinas</p>
-            </div>
-            <div className="bg-[#F5A623]/10 p-4 rounded-2xl text-center border-2 border-dashed border-[#F5A623]/30">
-              <div className="text-4xl mb-1">💚</div>
-              <p><span className="text-[#F5A623] font-black text-base">100% do lucro</span> vai direto pro projeto</p>
-            </div>
+  if (etapa === "carrinho") {
+    return (
+      <div className="min-h-screen bg-[#FBF9F4] py-12 px-6 font-sans text-stone-800">
+        <div className="max-w-5xl mx-auto space-y-8">
+          <div>
+            <h1 className="text-2xl md:text-3xl font-black tracking-tight">
+              Sua <span className="bg-gradient-to-r from-[#1E3A5F] to-[#3B82F6] bg-clip-text text-transparent">Sacola Solidária</span>
+            </h1>
+            <p className="text-xs text-stone-500 font-medium mt-0.5">Gerando autonomia e fomento social a cada escolha.</p>
           </div>
-        </div>
 
-        {/* Grid Principal */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* Lista de Itens */}
-          <div className="lg:col-span-2 space-y-5">
-            {cartItems.map((item, index) => {
-              const itemColor = (item as any).color || "#1E3A5F";
-              const rotationClass = index % 2 === 0 ? "-rotate-0.5" : "rotate-0.5";
-              
-              return (
-                <div
-                  key={item.id}
-                  className={`bg-white rounded-3xl p-5 flex items-center gap-4 sm:gap-6 shadow-xl border-4 ${rotationClass} hover:rotate-0 transition-all duration-200`}
-                  style={{ borderColor: itemColor }}
-                >
-                  <div 
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-inner border-2 border-dashed"
-                    style={{ backgroundColor: `${itemColor}15`, borderColor: `${itemColor}40` }}
-                  >
-                    <span className="text-4xl sm:text-5xl drop-shadow-sm">🧦</span>
-                  </div>
-                  
-                  <div className="flex-1 min-w-0">
-                    <p className="font-black text-[#1E3A5F] text-base truncate mb-1">{item.name}</p>
-                    <div className="flex flex-wrap justify-between items-center gap-2">
-                      <div className="text-gray-500 font-bold text-xs sm:text-sm space-y-0.5">
-                        <p>Quantidade: <span className="text-[#1E3A5F] font-black">{item.quantity}</span></p>
-                        <p>Unitário: R$ {item.price.toFixed(2)}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-[10px] uppercase tracking-wider font-black text-gray-400">Total item</p>
-                        <p className="font-black text-xl" style={{ color: itemColor }}>
-                          R$ {(item.quantity * item.price).toFixed(2)}
-                        </p>
-                      </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div className="lg:col-span-8 space-y-4">
+              {displayItems.map((item) => (
+                <div key={item.id} className="bg-white border border-orange-100/30 rounded-3xl p-5 flex items-center justify-between gap-4 shadow-sm">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-[#F9F5EE] rounded-2xl flex items-center justify-center text-3xl border border-orange-100/20">🧦</div>
+                    <div>
+                      <h3 className="font-extrabold text-stone-800 text-base">{item.name}</h3>
+                      <p className="text-xs text-stone-400 font-bold">Contribuição: R$ {item.price.toFixed(2)}</p>
                     </div>
                   </div>
-                  
-                  <button
-                    onClick={() => removeFromCart(item.id)}
-                    className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-xl hover:bg-red-50 flex-shrink-0"
-                  >
-                    <Trash2 className="w-5 h-5 stroke-[2.5]" />
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Resumo da Compra - Caixa Escura Divertida */}
-          <div className="bg-[#1E3A5F] text-white rounded-[36px] p-6 sm:p-8 h-fit shadow-2xl border-4 border-[#F5A623] transform rotate-0.5">
-            <h3 className="mb-5 flex items-center gap-2 font-black text-xl tracking-wide uppercase">
-              <span>📋</span> Resumo Geral
-            </h3>
-            <div className="space-y-3 font-semibold text-sm">
-              {cartItems.map((item) => (
-                <div key={item.id} className="flex justify-between text-white/80 gap-4">
-                  <span className="truncate">{item.name} (x{item.quantity})</span>
-                  <span className="font-bold flex-shrink-0">R$ {(item.quantity * item.price).toFixed(2)}</span>
+                  <div className="flex items-center gap-6">
+                    <span className="text-xs font-bold text-stone-500 bg-stone-50 px-2.5 py-1 rounded-xl border border-stone-200">Qtd: {item.quantity || 1}</span>
+                    <p className="font-black text-stone-900 text-base text-right min-w-[70px]">R$ {(item.price * (item.quantity || 1)).toFixed(2)}</p>
+                    <button onClick={() => removeFromCart(item.id)} className="text-stone-400 hover:text-red-500 p-1.5 rounded-xl transition-colors"><Trash2 className="w-4 h-4" /></button>
+                  </div>
                 </div>
               ))}
-              
-              <div className="border-t-4 border-dashed border-white/20 pt-4 mt-4 space-y-2">
-                <div className="flex justify-between text-white/70">
-                  <span>Subtotal:</span>
-                  <span>R$ {subtotal.toFixed(2)}</span>
+            </div>
+
+            <div className="lg:col-span-4 space-y-4">
+              <div className="bg-white border border-orange-100/30 rounded-3xl p-6 shadow-sm space-y-6">
+                <h2 className="font-extrabold text-stone-900 text-base border-b border-stone-50 pb-2">Resumo Geral</h2>
+                <div className="space-y-2 text-xs font-semibold text-stone-600">
+                  <div className="flex justify-between"><span>Subtotal dos Itens</span><span>R$ {total.toFixed(2)}</span></div>
+                  <div className="flex justify-between"><span className="text-emerald-600">Frete Comunidade</span><span className="text-emerald-600">Grátis</span></div>
+                  <div className="border-t border-stone-100 pt-3 flex justify-between text-sm font-black text-stone-950">
+                    <span>Total do Apoio</span><span className="text-xl text-[#1E3A5F]">R$ {total.toFixed(2)}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between text-white/70 mb-2">
-                  <span>Frete de Entrega:</span>
-                  <span>R$ {shipping.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between pt-4 border-t-2 border-white/40 font-black text-xl">
-                  <span>Total:</span>
-                  <span className="text-[#F5A623] drop-shadow-sm">R$ {total.toFixed(2)}</span>
-                </div>
+                
+                {/* FIX: Se preferir navegar por troca de estado seguro e local para evitar 404 */}
+                <button
+                  onClick={() => setEtapa("checkout")}
+                  className="w-full bg-[#F07147] hover:bg-[#d85f37] text-white py-3 rounded-2xl font-bold text-sm text-center shadow-sm flex items-center justify-center gap-1 transition-all"
+                >
+                  Avançar para o Checkout <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    );
+  }
 
-        {/* Botão de Finalização */}
-        <div className="text-center mt-12">
-          <Link
-            to="/pagamento"
-            className="inline-flex items-center gap-2 bg-[#F07147] hover:bg-[#e5643a] text-white px-12 py-4 rounded-full transition-all shadow-xl hover:shadow-xl font-black text-base hover:scale-105 uppercase tracking-wider"
-          >
-            <ShoppingBag className="w-5 h-5 stroke-[2.5]" /> Fechar e Pagar
-          </Link>
+  /* VISÃO DO CHECKOUT SEGURO INTEGRADO (Aponta para /pagamento se enviado como form) */
+  return (
+    <div className="min-h-screen bg-[#FBF9F4] py-12 px-6 font-sans text-stone-800">
+      <div className="max-w-4xl mx-auto space-y-8">
+        <div>
+          <button onClick={() => setEtapa("carrinho")} className="inline-flex items-center gap-1 text-xs font-bold text-stone-400 hover:text-[#F07147] mb-4 uppercase tracking-wider transition-colors">
+            <ArrowLeft className="w-3.5 h-3.5" /> Voltar para a Sacola
+          </button>
+          <h1 className="text-2xl md:text-3xl font-black text-stone-900 tracking-tight">
+            Concluir <span className="bg-gradient-to-r from-[#1E3A5F] to-[#3B82F6] bg-clip-text text-transparent">Sua Contribuição</span>
+          </h1>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <div className="md:col-span-7 space-y-4">
+            <div className="bg-white border border-orange-100/30 rounded-3xl p-6 shadow-sm space-y-4">
+              <h3 className="font-extrabold text-stone-900 text-sm uppercase tracking-wider text-stone-400">1. Destino da Entrega</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <input type="text" placeholder="CEP" className="w-full px-4 py-2.5 rounded-2xl border border-orange-100 bg-stone-50/60 text-xs font-medium outline-none" />
+                <input type="text" placeholder="Cidade" className="sm:col-span-2 w-full px-4 py-2.5 rounded-2xl border border-orange-100 bg-stone-50/60 text-xs font-medium outline-none" />
+                <input type="text" placeholder="Endereço Completo" className="sm:col-span-3 w-full px-4 py-2.5 rounded-2xl border border-orange-100 bg-stone-50/60 text-xs font-medium outline-none" />
+              </div>
+            </div>
+
+            <div className="bg-white border border-orange-100/30 rounded-3xl p-6 shadow-sm space-y-4">
+              <h3 className="font-extrabold text-stone-900 text-sm uppercase tracking-wider text-stone-400">2. Escolha o Método</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="border-2 border-[#F07147] bg-orange-50/20 p-4 rounded-2xl flex flex-col items-center justify-center gap-1.5 text-center">
+                  <span className="text-2xl">✨</span>
+                  <span className="text-xs font-bold text-stone-800">Pix Solidário</span>
+                </div>
+                <div className="border border-stone-200 bg-white p-4 rounded-2xl flex flex-col items-center justify-center gap-1.5 text-center text-stone-400">
+                  <span className="text-2xl">💳</span>
+                  <span className="text-xs font-bold text-stone-400">Cartão de Crédito</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="md:col-span-5 bg-white border border-orange-100/30 rounded-3xl p-6 shadow-sm space-y-4">
+            <h3 className="font-extrabold text-stone-900 text-base">Revisão Final</h3>
+            <div className="space-y-2 text-xs font-semibold text-stone-600 border-b border-stone-50 pb-4">
+              <div className="flex justify-between"><span>Produtos Selecionados</span><span>R$ {total.toFixed(2)}</span></div>
+              <div className="flex justify-between"><span className="text-emerald-600">Frete Social Apoio</span><span>Grátis</span></div>
+              <div className="flex justify-between text-sm font-black text-stone-950 pt-2"><span>Total Geral</span><span>R$ {total.toFixed(2)}</span></div>
+            </div>
+
+            {/* Redirecionamento nativo final para a sua rota de pagamento cadastrada */}
+            <Link
+              to="/pagamento"
+              className="w-full text-center block bg-[#F07147] hover:bg-[#d85f37] text-white font-bold text-sm py-3 rounded-2xl shadow-sm transition-transform hover:-translate-y-0.5"
+            >
+              Confirmar e Apoiar Projeto
+            </Link>
+
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 text-[11px] text-stone-500 leading-relaxed font-medium flex gap-2 items-start">
+              <ShieldCheck className="w-4 h-4 text-[#3B82F6] shrink-0 mt-0.5" />
+              <span>Ambiente de apoio comunitário. O recibo de aplicação dos fundos será enviado no seu e-mail.</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

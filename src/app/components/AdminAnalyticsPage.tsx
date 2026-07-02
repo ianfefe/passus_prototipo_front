@@ -1,129 +1,52 @@
-import { Link } from "react-router";
-import { Sparkles, BarChart2, TrendingUp } from "lucide-react";
-import {
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart3, Users, Scissors, Heart } from "lucide-react";
 
 export function AdminAnalyticsPage() {
-  const annualData = [
-    { year: "2016", vendas: 20, meta: 30 },
-    { year: "2017", vendas: 35, meta: 40 },
-    { year: "2018", vendas: 45, meta: 50 },
-    { year: "2019", vendas: 55, meta: 60 },
-    { year: "2020", vendas: 70, meta: 75 },
-  ];
-
-  const quarterlyData = [
-    { quarter: "Q1", produto1: 45, produto2: 35, produto3: 25, produto4: 20 },
-    { quarter: "Q2", produto1: 55, produto2: 42, produto3: 30, produto4: 28 },
-    { quarter: "Q3", produto1: 48, produto2: 38, produto3: 32, produto4: 24 },
-    { quarter: "Q4", produto1: 65, produto2: 50, produto3: 38, produto4: 32 },
-  ];
-
   return (
-    <div className="min-h-screen bg-[#F5F2EB] relative overflow-hidden font-sans pb-16">
-      
-      {/* Aquarelas de fundo */}
-      <div className="absolute top-10 -left-16 w-96 h-96 bg-[#4A90E2]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 -right-16 w-96 h-96 bg-[#7ED321]/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto px-6 py-12 relative z-10">
+    <div className="min-h-screen bg-[#FBF9F4] py-12 px-6 font-sans text-stone-800">
+      <div className="max-w-6xl mx-auto space-y-8">
         
-        <div className="mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <Link
-            to="/admin/produtos"
-            className="bg-[#4A90E2] hover:bg-[#3a7bc8] text-white px-6 py-2.5 rounded-full font-black text-xs tracking-wider uppercase shadow-lg hover:shadow-xl transition-all hover:scale-105 flex items-center gap-2 border-2 border-white"
-          >
-            ← Voltar pros Produtos
-          </Link>
-          <span className="text-xs font-black bg-white border-2 border-dashed border-gray-300 px-4 py-1.5 rounded-xl text-gray-500 shadow-sm">
-            Painel Administrativo 🛠️
-          </span>
+        <div>
+          <span className="text-xs font-bold uppercase tracking-wider text-[#3B82F6] bg-blue-50 px-2.5 py-0.5 rounded-md">Painel de Controle Interno</span>
+          <h1 className="text-2xl md:text-3xl font-black text-stone-900 tracking-tight mt-1">
+            Métricas de <span className="bg-gradient-to-r from-[#1E3A5F] to-[#3B82F6] bg-clip-text text-transparent">Transparência Social</span>
+          </h1>
         </div>
 
-        <h1 className="text-[#1E3A5F] text-3xl font-black mb-12 flex items-center justify-center md:justify-start gap-3">
-          <span className="text-4xl">📊</span> Gráficos de Crescimento
-        </h1>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
-          {/* Gráfico Anual */}
-          <div className="bg-white rounded-[36px] border-4 border-[#F07147] p-6 sm:p-8 shadow-2xl transform -rotate-0.5">
-            <h3 className="text-[#1E3A5F] mb-6 font-black text-lg flex items-center gap-2">
-              <TrendingUp className="text-[#F07147] w-5 h-5 stroke-[3]" />
-              Comparação de Metas Anuais
-            </h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={annualData}>
-                <CartesianGrid strokeDasharray="4 4" stroke="#1E3A5F15" />
-                <XAxis dataKey="year" stroke="#1E3A5F" font-weight-bold />
-                <YAxis stroke="#1E3A5F" font-weight-bold />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#F5F2EB",
-                    border: "3px solid #1E3A5F",
-                    borderRadius: "1.25rem",
-                    fontWeight: "bold",
-                  }}
-                />
-                <Legend wrapperStyle={{ fontWeight: "bold" }} />
-                <Line
-                  type="monotone"
-                  dataKey="vendas"
-                  stroke="#F07147"
-                  strokeWidth={4}
-                  dot={{ fill: "#F07147", r: 6 }}
-                  name="Vendas Concluídas"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="meta"
-                  stroke="#4A90E2"
-                  strokeWidth={4}
-                  dot={{ fill: "#4A90E2", r: 6 }}
-                  name="Meta de Impacto"
-                />
-              </LineChart>
-            </ResponsiveContainer>
+        {/* Blocos de Dados de Impacto Humanos */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="bg-white border border-orange-100/30 rounded-3xl p-6 shadow-sm space-y-2">
+            <div className="w-9 h-9 bg-orange-50 text-[#F07147] rounded-xl flex items-center justify-center"><Heart className="w-4 h-4 fill-[#F07147] stroke-none" /></div>
+            <p className="text-xs text-stone-400 font-bold uppercase tracking-wider">Fundo Arrecadado</p>
+            <p className="text-xl font-black text-stone-900">R$ 14.350,00</p>
           </div>
 
-          {/* Gráfico Trimestral */}
-          <div className="bg-white rounded-[36px] border-4 border-[#7ED321] p-6 sm:p-8 shadow-2xl transform rotate-0.5">
-            <h3 className="text-[#1E3A5F] mb-6 font-black text-lg flex items-center gap-2">
-              <BarChart2 className="text-[#7ED321] w-5 h-5 stroke-[3]" />
-              Vendas de Meias por Trimestre
-            </h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={quarterlyData}>
-                <CartesianGrid strokeDasharray="4 4" stroke="#1E3A5F15" />
-                <XAxis dataKey="quarter" stroke="#1E3A5F" font-weight-bold />
-                <YAxis stroke="#1E3A5F" font-weight-bold />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#F5F2EB",
-                    border: "3px solid #1E3A5F",
-                    borderRadius: "1.25rem",
-                    fontWeight: "bold",
-                  }}
-                />
-                <Legend wrapperStyle={{ fontWeight: "bold" }} />
-                <Bar dataKey="produto1" fill="#F07147" name="Oficina Arte" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="produto2" fill="#4A90E2" name="Esportiva Pro" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="produto3" fill="#7ED321" name="Social Elegance" radius={[6, 6, 0, 0]} />
-                <Bar dataKey="produto4" fill="#F5A623" name="Kids Fun" radius={[6, 6, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+          <div className="bg-white border border-orange-100/30 rounded-3xl p-6 shadow-sm space-y-2">
+            <div className="w-9 h-9 bg-blue-50 text-[#3B82F6] rounded-xl flex items-center justify-center"><Users className="w-4 h-4" /></div>
+            <p className="text-xs text-stone-400 font-bold uppercase tracking-wider">Alunos Atendidos</p>
+            <p className="text-xl font-black text-stone-900">42 Famílias</p>
+          </div>
+
+          <div className="bg-white border border-orange-100/30 rounded-3xl p-6 shadow-sm space-y-2">
+            <div className="w-9 h-9 bg-amber-50 text-amber-500 rounded-xl flex items-center justify-center"><Scissors className="w-4 h-4" /></div>
+            <p className="text-xs text-stone-400 font-bold uppercase tracking-wider">Peças Concluídas</p>
+            <p className="text-xl font-black text-stone-900">1.120 Pares</p>
+          </div>
+
+          <div className="bg-white border border-orange-100/30 rounded-3xl p-6 shadow-sm space-y-2">
+            <div className="w-9 h-9 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center"><BarChart3 className="w-4 h-4" /></div>
+            <p className="text-xs text-stone-400 font-bold uppercase tracking-wider">Oficinas Ativas</p>
+            <p className="text-xl font-black text-stone-900">3 Polos Locais</p>
           </div>
         </div>
+
+        {/* Gráfico/Placeholder de Relatório */}
+        <div className="bg-white border border-orange-100/30 rounded-3xl p-6 shadow-sm space-y-4">
+          <h3 className="font-extrabold text-base text-stone-900">Evolução Mensal da Inclusão Cooperativa</h3>
+          <div className="w-full h-48 bg-[#FAF7F0] rounded-2xl flex items-center justify-center text-xs font-bold text-stone-400 border border-orange-100/20">
+            Área reservada para o gráfico de linhas de faturamento líquido vs turmas formadas.
+          </div>
+        </div>
+
       </div>
     </div>
   );
