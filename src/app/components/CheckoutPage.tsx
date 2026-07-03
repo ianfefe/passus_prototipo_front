@@ -2,6 +2,8 @@ import { ShieldCheck, ArrowLeft, Truck, Package } from "lucide-react";
 import { Link } from "react-router";
 import { useCart } from "../context/CartContext";
 
+import qrcode from "@/assets/qrcode.svg";
+
 export function CheckoutPage() {
   const context = useCart();
   const cartItems = context?.cartItems || context?.items || [];
@@ -47,9 +49,9 @@ export function CheckoutPage() {
               </div>
               <div className="bg-stone-900 rounded-2xl p-6 flex flex-col items-center gap-4 text-center">
                  <div className="w-32 h-32 bg-white rounded-lg flex items-center justify-center p-2">
-                    <span className="text-[9px] text-stone-800 font-bold">QR CODE DEMO<br/>(Link p/ Instagram)</span>
+                    <img src={qrcode} alt="QR Code" className="w-full h-full object-contain" />
                  </div>
-                 <a href="https://www.instagram.com/projeto.passus/" target="_blank" rel="noreferrer" className="text-xs font-bold text-stone-300 underline">Abrir via Instagram</a>
+                 <a href="https://www.instagram.com/projeto.passus/" target="_blank" rel="noreferrer" className="text-xs font-bold text-stone-300 underline">O QR Code expira em 15 minutos</a>
               </div>
             </div>
           </div>

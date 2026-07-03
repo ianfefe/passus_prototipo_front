@@ -79,7 +79,7 @@ export function ProductDetailPage() {
                 onClick={() => addToCart?.({ id: product.id, name: product.name, price: product.price, quantity: 1 })}
                 className="flex-1 bg-gradient-to-r from-[#1E3A5F] to-[#3B82F6] hover:opacity-95 text-white font-bold text-sm py-3.5 rounded-2xl text-center shadow-md transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
               >
-                <CreditCard className="w-5 h-5" /> Apoiar Agora
+                <CreditCard className="w-5 h-5" /> Comprar
               </Link>
             </div>
 
