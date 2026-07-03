@@ -1,146 +1,121 @@
-import { Link } from "react-router";
-import { Trash2, Heart, Sparkles, ShoppingBag } from "lucide-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { Trash2, Heart, ArrowRight, ArrowLeft, ShoppingBag } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { Toast } from "./Toast";
 
 export function CartPage() {
-  const { items, removeFromCart } = useCart();
+  const navigate = useNavigate();
+  const context = useCart();
+  const [toast, setToast] = useState<string | null>(null);
+  
+  const cartItems = context?.cartItems || context?.items || [];
+  const removeFromCart = context?.removeFromCart || (() => {});
 
-  const cartItems = items.length > 0 ? items : [
-    { id: "1", name: "Meia Cano Alto Premium", quantity: 2, price: 25.0, color: "#4A90E2" },
-    { id: "2", name: "Meia Esportiva Pro", quantity: 1, price: 35.0, color: "#F5A623" },
-    { id: "3", name: "Meia Social Elegance", quantity: 3, price: 30.0, color: "#7ED321" },
-  ];
+  // Função robusta para limpar valores (remove R$, espaços e converte para número)
+  const parsePrice = (price: any): number => {
+    if (typeof price === 'number') return price;
+    if (typeof price === 'string') {
+      return parseFloat(price.replace(/[^0-9,.]/g, '').replace(',', '.')) || 0;
+    }
+    return 0;
+  };
 
-  const subtotal = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
-  const shipping = 15.0;
-  const total = subtotal + shipping;
+  const handleRemove = (id: number, name: string) => {
+    removeFromCart(id);
+    setToast(`${name} removido.`);
+  };
+
+  const displayItems = Array.isArray(cartItems) ? cartItems : [];
+  
+  const total = displayItems.reduce((acc, item) => {
+    return acc + (parsePrice(item.price) * (item.quantity || 1));
+  }, 0);
 
   return (
-    <div className="min-h-screen bg-[#F5F2EB] relative overflow-hidden font-sans pb-16">
-      
-      {/* Aquarelas de fundo */}
-      <div className="absolute top-10 -left-16 w-96 h-96 bg-[#4A90E2]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-20 -right-16 w-96 h-96 bg-[#7ED321]/15 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto px-6 py-12 relative z-10">
-        
-        <h1 className="text-[#1E3A5F] text-3xl font-black mb-8 flex items-center gap-3">
-          <span className="text-4xl">🛒</span> Seu Sacolão de Compras
-        </h1>
-
-        {/* Bloco de impacto social - Estilo "Painel Escolar" */}
-        <div className="bg-white rounded-[32px] p-6 mb-10 shadow-2xl border-4 border-[#7ED321] relative overflow-hidden transform -rotate-0.5">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-[#7ED321]/5 rounded-bl-[80px]" />
-          <h3 className="text-[#1E3A5F] font-black text-xl mb-4 flex items-center gap-2">
-            <Heart className="text-[#F07147] w-6 h-6 fill-[#F07147] animate-pulse" />
-            Você Está Fazendo a Diferença!
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-700 font-bold text-sm">
-            <div className="bg-[#7ED321]/10 p-4 rounded-2xl text-center border-2 border-dashed border-[#7ED321]/30">
-              <div className="text-4xl mb-1">👨‍👩‍👧</div>
-              <p><span className="text-[#7ED321] font-black text-base">5 famílias</span> apoiadas com esta compra</p>
-            </div>
-            <div className="bg-[#4A90E2]/10 p-4 rounded-2xl text-center border-2 border-dashed border-[#4A90E2]/30">
-              <div className="text-4xl mb-1">🎨</div>
-              <p><span className="text-[#4A90E2] font-black text-base">12 crianças</span> participando das oficinas</p>
-            </div>
-            <div className="bg-[#F5A623]/10 p-4 rounded-2xl text-center border-2 border-dashed border-[#F5A623]/30">
-              <div className="text-4xl mb-1">💚</div>
-              <p><span className="text-[#F5A623] font-black text-base">100% do lucro</span> vai direto pro projeto</p>
-            </div>
-          </div>
+    <div className="min-h-screen bg-[#F4F1EA] py-12 px-6 font-sans text-stone-800">
+      <div className="max-w-5xl mx-auto space-y-8">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-black tracking-tight">
+            Sua <span className="bg-gradient-to-r from-[#1E3A5F] to-[#3B82F6] bg-clip-text text-transparent">Sacola Solidária</span>
+          </h1>
+          <p className="text-xs text-stone-500 font-medium mt-0.5">Gerando autonomia e fomento social a cada escolha.</p>
         </div>
 
-        {/* Grid Principal */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* Lista de Itens */}
-          <div className="lg:col-span-2 space-y-5">
-            {cartItems.map((item, index) => {
-              const itemColor = (item as any).color || "#1E3A5F";
-              const rotationClass = index % 2 === 0 ? "-rotate-0.5" : "rotate-0.5";
-              
-              return (
-                <div
-                  key={item.id}
-                  className={`bg-white rounded-3xl p-5 flex items-center gap-4 sm:gap-6 shadow-xl border-4 ${rotationClass} hover:rotate-0 transition-all duration-200`}
-                  style={{ borderColor: itemColor }}
-                >
-                  <div 
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-inner border-2 border-dashed"
-                    style={{ backgroundColor: `${itemColor}15`, borderColor: `${itemColor}40` }}
-                  >
-                    <span className="text-4xl sm:text-5xl drop-shadow-sm">🧦</span>
-                  </div>
-                  
-                  <div className="flex-1 min-w-0">
-                    <p className="font-black text-[#1E3A5F] text-base truncate mb-1">{item.name}</p>
-                    <div className="flex flex-wrap justify-between items-center gap-2">
-                      <div className="text-gray-500 font-bold text-xs sm:text-sm space-y-0.5">
-                        <p>Quantidade: <span className="text-[#1E3A5F] font-black">{item.quantity}</span></p>
-                        <p>Unitário: R$ {item.price.toFixed(2)}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-[10px] uppercase tracking-wider font-black text-gray-400">Total item</p>
-                        <p className="font-black text-xl" style={{ color: itemColor }}>
-                          R$ {(item.quantity * item.price).toFixed(2)}
-                        </p>
+        {displayItems.length === 0 ? (
+          <div className="text-center py-20 bg-white rounded-[2rem] border border-stone-200 shadow-md">
+            <p className="text-stone-500 font-bold mb-4">Sua sacola está vazia.</p>
+            <Link to="/produtos" className="text-[#F07147] font-bold underline">Ver nossa produção</Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <div className="lg:col-span-8 space-y-4">
+              {displayItems.map((item: any) => {
+                const price = parsePrice(item.price);
+                const subtotal = price * (item.quantity || 1);
+                
+                return (
+                  <div key={item.id} className="bg-white border border-stone-200 rounded-3xl p-5 flex items-center justify-between gap-4 shadow-md shadow-stone-200/50">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 bg-[#F8F6F0] rounded-2xl flex items-center justify-center text-3xl border border-stone-100">🧦</div>
+                      <div>
+                        <h3 className="font-extrabold text-stone-800 text-base">{item.name || "Item"}</h3>
+                        <p className="text-xs text-stone-400 font-bold">Contribuição: R$ {price.toFixed(2)}</p>
                       </div>
                     </div>
+                    <div className="flex items-center gap-6">
+                      <span className="text-xs font-bold text-stone-500 bg-stone-50 px-3 py-1 rounded-xl border border-stone-200">
+                        Qtd: {item.quantity || 1}
+                      </span>
+                      <p className="font-black text-stone-900 text-base text-right min-w-[70px]">
+                        R$ {subtotal.toFixed(2)}
+                      </p>
+                      <button 
+                        onClick={() => handleRemove(item.id, item.name)} 
+                        className="text-stone-400 hover:text-red-500 p-1.5 rounded-xl transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
-                  
-                  <button
-                    onClick={() => removeFromCart(item.id)}
-                    className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-xl hover:bg-red-50 flex-shrink-0"
-                  >
-                    <Trash2 className="w-5 h-5 stroke-[2.5]" />
-                  </button>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
 
-          {/* Resumo da Compra - Caixa Escura Divertida */}
-          <div className="bg-[#1E3A5F] text-white rounded-[36px] p-6 sm:p-8 h-fit shadow-2xl border-4 border-[#F5A623] transform rotate-0.5">
-            <h3 className="mb-5 flex items-center gap-2 font-black text-xl tracking-wide uppercase">
-              <span>📋</span> Resumo Geral
-            </h3>
-            <div className="space-y-3 font-semibold text-sm">
-              {cartItems.map((item) => (
-                <div key={item.id} className="flex justify-between text-white/80 gap-4">
-                  <span className="truncate">{item.name} (x{item.quantity})</span>
-                  <span className="font-bold flex-shrink-0">R$ {(item.quantity * item.price).toFixed(2)}</span>
+            <div className="lg:col-span-4 space-y-4">
+              <div className="bg-white border border-stone-200 rounded-3xl p-6 shadow-md shadow-stone-200/50 space-y-6">
+                <h2 className="font-extrabold text-stone-900 text-base border-b border-stone-100 pb-2">Resumo Geral</h2>
+                
+                <div className="space-y-2 text-xs font-semibold text-stone-600">
+                  <div className="flex justify-between"><span>Subtotal dos Itens</span><span>R$ {total.toFixed(2)}</span></div>
+                  <div className="flex justify-between"><span className="text-emerald-600">Frete Comunidade</span><span className="text-emerald-600">Grátis</span></div>
+                  <div className="border-t border-stone-100 pt-3 flex justify-between text-sm font-black text-stone-950">
+                    <span>Total do Apoio</span><span className="text-xl text-[#1E3A5F]">R$ {total.toFixed(2)}</span>
+                  </div>
                 </div>
-              ))}
-              
-              <div className="border-t-4 border-dashed border-white/20 pt-4 mt-4 space-y-2">
-                <div className="flex justify-between text-white/70">
-                  <span>Subtotal:</span>
-                  <span>R$ {subtotal.toFixed(2)}</span>
+
+                <button
+                  onClick={() => navigate("/pagamento")}
+                  className="w-full bg-[#F07147] hover:bg-[#d85f37] text-white py-3 rounded-2xl font-bold text-sm text-center shadow-md transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-1"
+                >
+                  Avançar para o Checkout <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="bg-gradient-to-br from-[#1E3A5F] to-[#2563EB] text-white rounded-3xl p-5 shadow-sm space-y-2">
+                <div className="flex items-center gap-1 text-xs font-bold uppercase text-amber-300">
+                  <Heart className="w-3.5 h-3.5 fill-amber-300 stroke-none" /> Destinação Transparente
                 </div>
-                <div className="flex justify-between text-white/70 mb-2">
-                  <span>Frete de Entrega:</span>
-                  <span>R$ {shipping.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between pt-4 border-t-2 border-white/40 font-black text-xl">
-                  <span>Total:</span>
-                  <span className="text-[#F5A623] drop-shadow-sm">R$ {total.toFixed(2)}</span>
-                </div>
+                <p className="text-[11px] text-stone-100 leading-relaxed font-medium">
+                  O valor desta sacola financia diretamente insumos têxteis e manutenção das máquinas das nossas cooperadas locais.
+                </p>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Botão de Finalização */}
-        <div className="text-center mt-12">
-          <Link
-            to="/pagamento"
-            className="inline-flex items-center gap-2 bg-[#F07147] hover:bg-[#e5643a] text-white px-12 py-4 rounded-full transition-all shadow-xl hover:shadow-xl font-black text-base hover:scale-105 uppercase tracking-wider"
-          >
-            <ShoppingBag className="w-5 h-5 stroke-[2.5]" /> Fechar e Pagar
-          </Link>
-        </div>
+        )}
       </div>
+      {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </div>
   );
 }

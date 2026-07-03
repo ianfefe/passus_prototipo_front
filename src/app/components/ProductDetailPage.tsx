@@ -1,153 +1,128 @@
 import { useParams, Link } from "react-router";
-import { Truck, ShoppingCart, Sparkles, CheckCircle } from "lucide-react";
-import { useState } from "react";
 import { useCart } from "../context/CartContext";
-import { Toast } from "./Toast";
+import { ArrowLeft, Users, ShoppingBag, CreditCard, Heart, Truck, ShieldCheck } from "lucide-react";
+
+import meia1 from "@/assets/meia1.png";
+import meia2 from "@/assets/meia2.png";
+import meia3 from "@/assets/meia3.png";
+import meia4 from "@/assets/meia4.png";
 
 export function ProductDetailPage() {
   const { id } = useParams();
-  const [showFreight, setShowFreight] = useState(false);
-  const [cep, setCep] = useState("");
-  const [freightResult, setFreightResult] = useState<string | null>(null);
-  const [showToast, setShowToast] = useState(false);
   const { addToCart } = useCart();
 
-  const thumbnails = [1, 2, 3];
+  const productId = id ? parseInt(id) : 1;
 
-  const handleCalculateFreight = () => {
-    if (cep) {
-      setFreightResult("Frete para sua região: R$ 15,00 (Prazo: 3 dias úteis)");
-    }
+  const productsMap: Record<number, { id: number; name: string; price: number; image: string; oficina: string; tag: string; desc: string }> = {
+    1: { id: 1, name: "Meia Cano Alto Premium", price: 35.00, image: meia1, oficina: "Polo Central", tag: "Mais Vendida", desc: "Desenvolvida com algodão penteado de fibra longa e pontas com costura invisível. Ideal para o máximo de conforto diário e durabilidade estrutural." },
+    2: { id: 2, name: "Meia Esportiva Pro", price: 40.00, image: meia2, oficina: "Oficina Norte", tag: "Algodão Orgânico", desc: "Estrutura atoalhada com média compressão no arco do pé, perfeita para atividades físicas e alta absorção de impacto." },
+    3: { id: 3, name: "Meia Social Elegance", price: 30.00, image: meia3, oficina: "Polo Central", tag: "Coleção Clássica", desc: "Malha fina mercerizada com toque acetinado. Elegância discreta combinada com a causa do comércio justo." },
+    4: { id: 4, name: "Meia Invisível Comfort", price: 25.00, image: meia4, oficina: "Oficina Sul", tag: "Dia a Dia", desc: "Corte anatômico de perfil baixo que não aparece no calçado, contando com silicone interno no calcanhar para não escapar." },
   };
 
-  const handleAddToCart = () => {
-    addToCart({
-      id: id || "1",
-      name: "Meia Cano Alto Premium",
-      price: 35.0,
-      quantity: 1,
-    });
-    setShowToast(true);
-  };
+  const product = productsMap[productId] || productsMap[1];
 
   return (
-    <div className="min-h-screen bg-[#F5F2EB] relative overflow-hidden font-sans pb-16">
-      
-      {/* Aquarelas de fundo */}
-      <div className="absolute top-10 -left-16 w-96 h-96 bg-[#4A90E2]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 -right-16 w-96 h-96 bg-[#F5A623]/15 rounded-full blur-3xl pointer-events-none" />
-
-      {showToast && (
-        <Toast
-          message="Meia fofa adicionada ao carrinho com sucesso! 🧦"
-          onClose={() => setShowToast(false)}
-        />
-      )}
-
-      <div className="max-w-6xl mx-auto px-6 py-12 relative z-10">
+    <div className="min-h-screen bg-[#F4F1EA] py-12 px-6 font-sans text-stone-800">
+      <div className="max-w-6xl mx-auto">
         
-        <h1 className="text-[#1E3A5F] text-3xl font-black mb-10 flex items-center gap-3 justify-center md:justify-start">
-          <span className="text-4xl animate-bounce">🧦</span> Meia Cano Alto Premium
-        </h1>
+        <Link to="/produtos" className="inline-flex items-center gap-1 text-xs font-bold text-stone-500 hover:text-[#F07147] mb-6 uppercase tracking-wider transition-colors">
+          <ArrowLeft className="w-4 h-4" /> Voltar à Coleção
+        </Link>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
+        {/* Layout Expandido para maior presença visual */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 bg-white border border-stone-200 rounded-[2.5rem] p-6 md:p-12 shadow-md shadow-stone-200/50 items-start">
           
-          {/* Lado Esquerdo - Imagens Polaroid */}
-          <div>
-            <div className="w-full aspect-square bg-white rounded-[40px] flex items-center justify-center mb-6 border-4 border-white shadow-2xl transform -rotate-1 relative overflow-hidden group">
-              <div className="w-full h-full bg-gradient-to-br from-[#F5F2EB] to-gray-50 rounded-[32px] flex items-center justify-center p-8 border-4 border-dashed border-gray-200/60 shadow-inner">
-                <span className="text-9xl drop-shadow-md group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">🧦</span>
-              </div>
-            </div>
+          {/* LADO ESQUERDO: Imagem Imponente */}
+          <div className="lg:col-span-6 w-full h-[400px] md:h-[500px] bg-[#F8F6F0] rounded-3xl flex items-center justify-center p-8 overflow-hidden relative shadow-inner border border-stone-200">
+            <img 
+              src={product.image}
+              alt={product.name}
+              className="w-full h-full object-contain drop-shadow-lg transform hover:scale-105 transition-transform duration-500"
+            />
+            <span className="absolute top-6 left-6 text-[10px] font-black uppercase tracking-wider bg-white border border-stone-200 px-3 py-1.5 rounded-xl text-[#1E3A5F] shadow-sm">
+              {product.tag}
+            </span>
+          </div>
+
+          {/* LADO DIREITO: Informações, Compra e Frete */}
+          <div className="lg:col-span-6 space-y-8 py-4">
             
-            {/* Fotos menores do carrossel */}
-            <div className="grid grid-cols-3 gap-4">
-              {thumbnails.map((thumb, index) => (
-                <div
-                  key={thumb}
-                  className="aspect-square bg-white rounded-2xl flex items-center justify-center border-2 border-white shadow-md cursor-pointer hover:border-[#F07147] transition-all hover:scale-105 p-1.5"
-                  style={{
-                    transform: `rotate(${index % 2 === 0 ? -2 : 2}deg)`,
-                  }}
-                >
-                  <div className="w-full h-full bg-gradient-to-br from-[#F5F2EB] to-gray-50 rounded-xl flex items-center justify-center border border-dashed border-gray-200">
-                    <span className="text-3xl">🧦</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Lado Direito - Ficha de Detalhes */}
-          <div className="flex flex-col justify-center">
-            <div className="bg-white rounded-[36px] p-8 shadow-2xl border-4 border-[#4A90E2] mb-6 relative transform rotate-0.5">
-              <Sparkles className="absolute top-4 right-6 text-[#F5A623] w-5 h-5 animate-pulse" />
-              <h2 className="text-[#1E3A5F] text-xl font-black mb-3 flex items-center gap-2">
-                <span>✨</span> Sobre Essa Arte em Meia:
-              </h2>
-              <p className="text-gray-700 mb-4 font-semibold text-sm leading-relaxed">
-                Meia de cano alto confeccionada em algodão premium de altíssima qualidade, proporcionando máximo aconchego, elasticidade e alta durabilidade pros seus pés. 
-              </p>
-              <p className="text-gray-600 text-xs leading-relaxed border-t-2 border-dashed border-gray-100 pt-4">
-                Disponível em tamanhos flexíveis. Possui material respirável que mantém o conforto o dia todinho. E o mais legal: a estampa traz traços criados com amor direto das oficinas infantis do PASSUS! 🖍️
+            {/* Cabeçalho do Produto */}
+            <div className="space-y-2">
+              <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest block">
+                Produção Garantida • {product.oficina}
+              </span>
+              <h1 className="text-3xl md:text-4xl font-black text-stone-900 tracking-tight">
+                {product.name}
+              </h1>
+              <p className="text-3xl font-black text-[#1E3A5F]">
+                R$ {product.price.toFixed(2)}
               </p>
             </div>
 
-            {/* Ações e Cálculo de Frete */}
-            <div className="space-y-4">
-              <div>
-                <button
-                  onClick={() => setShowFreight(!showFreight)}
-                  className="w-full bg-[#1E3A5F] hover:bg-[#152d47] text-white px-6 py-3 rounded-full transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 font-black text-xs uppercase tracking-wider hover:scale-102"
-                >
-                  <Truck className="w-4 h-4 stroke-[3]" /> Calcular Frete de Envio
-                </button>
+            <p className="text-stone-600 text-sm md:text-base leading-relaxed font-medium">
+              {product.desc}
+            </p>
 
-                {showFreight && (
-                  <div className="mt-4 space-y-3 animate-fade-in">
-                    <div className="flex gap-2">
-                      <input
-                        type="text"
-                        value={cep}
-                        onChange={(e) => setCep(e.target.value)}
-                        placeholder="CEP: 00000-000"
-                        className="flex-1 px-4 py-2.5 text-sm rounded-2xl border-3 border-[#1E3A5F] bg-white font-bold"
-                      />
-                      <button
-                        onClick={handleCalculateFreight}
-                        className="bg-[#F07147] hover:bg-[#e5643a] text-white px-5 py-2.5 rounded-2xl font-black text-xs uppercase tracking-wider shadow-md"
-                      >
-                        Calcular
-                      </button>
-                    </div>
-
-                    {freightResult && (
-                      <div className="bg-white rounded-2xl p-4 border-3 border-dashed border-[#F07147] shadow-md flex items-center gap-2 text-sm font-bold text-[#1E3A5F]">
-                        <CheckCircle className="w-4 h-4 text-[#7ED321] flex-shrink-0" />
-                        <p>{freightResult}</p>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-              
-              {/* Botões de Compra Rápidos */}
-              <Link
-                to={`/checkout-direto/${id}`}
-                className="w-full bg-gradient-to-r from-[#F07147] to-[#F5A623] hover:from-[#e5643a] hover:to-[#db9520] text-white px-6 py-4 rounded-full transition-all shadow-xl hover:shadow-xl flex items-center justify-center gap-2 font-black text-base uppercase tracking-wider hover:scale-102"
-              >
-                Comprar Agora ⚡
-              </Link>
-              
+            {/* Ações de Compra */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <button
-                onClick={handleAddToCart}
-                className="w-full bg-[#7ED321] hover:bg-[#6bb81d] text-white px-6 py-4 rounded-full transition-all shadow-xl hover:shadow-xl flex items-center justify-center gap-2 font-black text-base uppercase tracking-wider hover:scale-102"
+                onClick={() => addToCart?.({ id: product.id, name: product.name, price: product.price, quantity: 1 })}
+                className="flex-1 bg-white hover:bg-stone-50 text-[#F07147] border-2 border-[#F07147] font-bold text-sm py-3.5 rounded-2xl transition-all flex items-center justify-center gap-2 shadow-sm hover:-translate-y-0.5"
               >
-                <ShoppingCart className="w-5 h-5 stroke-[3]" /> Adicionar ao Carrinho
+                <ShoppingBag className="w-5 h-5" /> Pôr na Sacola
               </button>
-            </div>
-          </div>
 
+              <Link
+                to="/pagamento"
+                onClick={() => addToCart?.({ id: product.id, name: product.name, price: product.price, quantity: 1 })}
+                className="flex-1 bg-gradient-to-r from-[#1E3A5F] to-[#3B82F6] hover:opacity-95 text-white font-bold text-sm py-3.5 rounded-2xl text-center shadow-md transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+              >
+                <CreditCard className="w-5 h-5" /> Comprar
+              </Link>
+            </div>
+
+            {/* PROTÓTIPO DE CÁLCULO DE FRETE */}
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-5 space-y-3">
+              <div className="flex items-center gap-2 text-sm font-extrabold text-stone-800">
+                <Truck className="w-5 h-5 text-stone-400" /> Consultar Prazos e Frete
+              </div>
+              <div className="flex gap-3">
+                <input 
+                  type="text" 
+                  placeholder="Seu CEP (Ex: 36000-000)" 
+                  className="flex-1 px-4 py-2.5 rounded-xl border border-stone-200 bg-white text-sm font-medium outline-none focus:border-[#3B82F6]"
+                  maxLength={9}
+                />
+                <button className="bg-stone-200 hover:bg-stone-300 text-stone-700 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors">
+                  Calcular
+                </button>
+              </div>
+              <p className="text-[10px] text-stone-400 font-medium px-1">
+                *Entregas para Juiz de Fora e região possuem frete subsidiado.
+              </p>
+            </div>
+
+            {/* Selos de Confiança / História */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="bg-[#F8F6F0] rounded-2xl p-4 border border-stone-200 shadow-sm flex flex-col gap-2">
+                <Users className="w-5 h-5 text-[#F07147]" />
+                <div>
+                  <h4 className="font-extrabold text-stone-800 text-xs uppercase tracking-wider">Comércio Justo</h4>
+                  <p className="text-[11px] text-stone-500 leading-relaxed mt-0.5 font-medium">100% da renda financia as oficinas locais de capacitação.</p>
+                </div>
+              </div>
+              <div className="bg-[#F8F6F0] rounded-2xl p-4 border border-stone-200 shadow-sm flex flex-col gap-2">
+                <ShieldCheck className="w-5 h-5 text-emerald-600" />
+                <div>
+                  <h4 className="font-extrabold text-stone-800 text-xs uppercase tracking-wider">Compra Segura</h4>
+                  <p className="text-[11px] text-stone-500 leading-relaxed mt-0.5 font-medium">Ambiente auditado com prestação de contas digital.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
