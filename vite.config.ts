@@ -34,6 +34,13 @@ export default defineConfig({
       // O apelido @ agora vai funcionar perfeitamente sem quebrar no ESM
       '@': path.resolve(__dirname, './src'),
     },
+    // Garante uma única cópia do React (evita "Invalid hook call" com o Motion)
+    dedupe: ['react', 'react-dom'],
+  },
+
+  // Pré-empacota o Motion junto do React para partilharem a mesma instância
+  optimizeDeps: {
+    include: ['motion/react', 'react', 'react-dom'],
   },
 
   // Suporte a importações brutas
