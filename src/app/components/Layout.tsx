@@ -1,5 +1,5 @@
 import { Link, Outlet, useNavigate, useLocation } from "react-router";
-import { Search, ShoppingCart, User, Heart, Mail, MapPin, Phone, ArrowUp, Instagram } from "lucide-react";
+import { Search, ShoppingCart, User, Heart, Mail, MapPin, Phone, ArrowUp, Instagram, Code2 } from "lucide-react";
 import { motion, useScroll, useSpring } from "motion/react";
 import { useCart } from "../context/CartContext";
 import { useState, useEffect } from "react";
@@ -207,6 +207,20 @@ export function Layout() {
           </div>
         </div>
       </footer>
+
+      <a 
+        href="/prototipo_propus_case/" 
+        className="fixed bottom-6 left-6 z-50 bg-[#0B1120] text-white px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2.5 text-xs font-bold hover:-translate-y-1 hover:shadow-2xl transition-all border border-slate-800 group"
+        title="Conheça a Agência Propus"
+      >
+        <div className="bg-slate-800/50 p-1.5 rounded-lg group-hover:bg-[#0B7269]/40 transition-colors">
+          <Code2 className="w-4 h-4 text-[#62D5B4]" />
+        </div>
+        <div className="flex flex-col">
+          <span className="text-[9px] text-slate-400 font-medium uppercase tracking-wider leading-none mb-0.5">Desenvolvido por</span>
+          <span className="text-sm tracking-tight leading-none text-white group-hover:text-[#62D5B4] transition-colors">Propus</span>
+        </div>
+      </a>
 
       {/* Botão voltar ao topo */}
       <motion.button
