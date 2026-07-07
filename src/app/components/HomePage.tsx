@@ -83,7 +83,7 @@ export function HomePage() {
 
                 {/* Botão de Link Externo */}
                 <a 
-                  href="https://www.instagram.com/projeto.passus/" 
+                  href="/prototipo_propus_case/passus/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full bg-slate-900 dark:bg-[#62D5B4] hover:bg-slate-800 dark:hover:bg-[#4bc19f] text-white dark:text-[#0B1120] font-bold text-sm py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md"

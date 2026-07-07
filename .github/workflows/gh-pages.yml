@@ -1,8 +1,8 @@
-name: Deploy to GitHub Pages
+name: Deploy Propus e Passus
 
 on:
   push:
-    branches: ["main"] # Mude para "master" se a sua branch principal for master
+    branches: ["Propus"] # Nome da branch da Propus (pode ser master)
 
 permissions:
   contents: read
@@ -14,35 +14,62 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      # 1. Baixa a branch da Propus
+      - name: Checkout Propus
         uses: actions/checkout@v4
-      
+        with:
+          ref: Propus # SUBSTITUA se sua branch da propus tiver outro nome
+          path: propus-src
+
+      # 2. Baixa a branch do Passus
+      - name: Checkout Passus
+        uses: actions/checkout@v4
+        with:
+          ref: passus # SUBSTITUA AQUI pelo nome exato da sua branch do Passus
+          path: passus-src
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      # 3. Instala e compila a Propus
+      - name: Build Propus
+        run: |
+          cd propus-src
+          npm install
+          npm run build
+
+      # 4. Instala e compila o Passus
+      - name: Build Passus
+        run: |
+          cd passus-src
+          npm install
+          npm run build
+
+      # 5. A Mágica: Junta os dois projetos!
+      - name: Mesclar Projetos
+        run: |
+          mkdir dist-final
+          # Copia o site da Propus para a raiz
+          cp -r propus-src/dist/* dist-final/
           
-      - name: Install dependencies
-        run: npm install
-        
-      - name: Build
-        run: npm run build
-        
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        
+          # Cria a pasta do passus e copia o site do Passus pra lá
+          mkdir dist-final/passus
+          cp -r passus-src/dist/* dist-final/passus/
+
+      # 6. Sobe tudo para o GitHub Pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Aqui está o segredo: garante que SÓ a pasta compilada vá para o Pages
-          path: './dist'
-          
+          path: './dist-final'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
