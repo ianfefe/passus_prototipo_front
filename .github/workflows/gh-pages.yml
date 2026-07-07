@@ -31,7 +31,7 @@ jobs:
       - name: Checkout Passus
         uses: actions/checkout@v4
         with:
-          ref: passus # SUBSTITUA AQUI pelo nome exato da sua branch do Passus
+          ref: Passus # SUBSTITUA AQUI pelo nome exato da sua branch do Passus
           path: passus-src
 
       - name: Setup Node
