@@ -22,8 +22,7 @@ function figmaAssetResolver() {
 
 export default defineConfig({
   // Base do repositório mapeada perfeitamente pro GitHub Pages
-  base: '/passus_prototipo_front/',
-  
+  base: '/prototipo_propus_case/passus/',
   plugins: [
     figmaAssetResolver(),
     react(),
