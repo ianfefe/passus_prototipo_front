@@ -1,79 +1,56 @@
-import { Heart, Instagram, MessageCircle } from "lucide-react";
-  import insta1 from "@/assets/insta1.png";
-  import insta2 from "@/assets/insta2.png";
-  import insta3 from "@/assets/insta3.png";
-  import insta4 from "@/assets/insta4.png";
+import { Terminal, Users, Globe2 } from "lucide-react";
 
 export function AboutPage() {
-  // Seus posts estruturados do Instagram
-  const instagramPosts = [
-    { id: 1, likes: "142", comments: "12", img: insta1, tag: "Detalhes" },
-    { id: 2, likes: "98", comments: "5", img: insta2, tag: "Oficina" },
-    { id: 3, likes: "210", comments: "28", img: insta3, tag: "Produção" },
-    { id: 4, likes: "175", comments: "16", img: insta4, tag: "Campanha" }
-  ];
-
   return (
-    <div className="min-h-screen bg-[#F4F1EA] py-12 px-6 font-sans text-stone-800">
-      <div className="max-w-5xl mx-auto space-y-12">
+    <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] py-12 px-6 font-sans text-slate-800 dark:text-slate-200 transition-colors duration-500">
+      <div className="max-w-4xl mx-auto space-y-12 relative z-10">
         
-        {/* Bloco do Manifesto */}
-        <section className="bg-white rounded-[2.5rem] p-8 md:p-14 border border-stone-200 shadow-md shadow-stone-200/50 space-y-6">
-          <div className="space-y-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#F07147]">Nossa Causa</span>
-            <h1 className="text-3xl md:text-5xl font-black text-stone-900 tracking-tight">
-              Sobre o <span className="bg-gradient-to-r from-[#1E3A5F] to-[#3B82F6] bg-clip-text text-transparent">Projeto PASSUS</span>
+        <section className="bg-white dark:bg-[#111827] rounded-3xl p-8 md:p-14 border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-xl space-y-8 relative overflow-hidden transition-colors duration-500">
+          {/* Efeito Glow apenas no dark mode */}
+          <div className="hidden dark:block absolute -top-32 -left-32 w-96 h-96 bg-[#0B7269] blur-[150px] opacity-20 pointer-events-none"></div>
+          
+          <div className="space-y-3 text-center md:text-left relative z-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#0B7269] dark:text-[#62D5B4] transition-colors">
+              Nossa História
+            </span>
+            <h1 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight transition-colors">
+              Acreditamos que a tecnologia deve servir ao <span className="text-[#0B7269] dark:text-[#62D5B4] dark:drop-shadow-[0_0_15px_rgba(98,213,180,0.3)] transition-colors">impacto humano.</span>
             </h1>
           </div>
           
-          <div className="text-stone-600 space-y-4 leading-relaxed font-medium text-sm md:text-base max-w-3xl">
+          <div className="text-slate-600 dark:text-slate-400 space-y-5 leading-relaxed font-medium text-sm md:text-base border-l-4 border-[#0B7269] pl-6 bg-slate-50 dark:bg-[#0B1120]/50 p-6 rounded-r-2xl relative z-10 transition-colors duration-500">
             <p>
-              O PASSUS nasceu com o propósito simples, mas poderoso, de transformar a realidade de quem mais precisa através da moda e do design com propósito social. Mais do que fabricar e comercializar meias de excelente qualidade, nossa missão central é acolher histórias e abrir portas.
+              A <strong className="text-slate-900 dark:text-white transition-colors">Propus</strong> nasceu com a missão de reduzir a lacuna tecnológica entre o mercado corporativo e o terceiro setor. Nós enxergamos que ONGs e projetos sociais possuem propósitos incríveis, mas frequentemente esbarram na falta de infraestrutura digital para escalar suas ações.
             </p>
             <p>
-              Através de oficinas estruturadas de corte, costura e estamparia industrial, nós oferecemos capacitação prática completa e gratuita para moradores de comunidades da periferia, auxiliando diretamente na inserção profissional estável e na conquista de uma renda justa e autônoma.
+              Nós projetamos, desenhamos e codificamos soluções de software — como o e-commerce do <strong className="text-slate-900 dark:text-white transition-colors">Projeto Passus</strong> —, entregando produtos digitais de alta performance que permitem que associações arrecadem mais, operem melhor e transformem a vida de mais pessoas.
             </p>
           </div>
         </section>
 
-        {/* CARROSSEL DO INSTAGRAM AMPLIADO */}
-        <section className="space-y-6">
-          <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-stone-200 pb-3">
-            <div>
-              <h2 className="font-black text-2xl text-stone-950 flex items-center gap-2">
-                <Instagram className="w-6 h-6 text-[#F07147]" /> Nosso Dia a Dia
-              </h2>
-              <p className="text-xs md:text-sm text-stone-500 font-medium mt-1">Acompanhe os bastidores e oficinas direto no Instagram</p>
+        <section className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="bg-white dark:bg-[#111827] p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg flex flex-col items-center text-center gap-4 hover:border-slate-300 dark:hover:border-slate-600 hover:-translate-y-1 transition-all duration-300">
+            <div className="w-14 h-14 bg-teal-50 dark:bg-[#0B7269]/20 rounded-xl flex items-center justify-center text-[#0B7269] dark:text-[#62D5B4] border border-transparent dark:border-[#0B7269]/40 transition-colors">
+              <Terminal className="w-6 h-6" />
             </div>
-            <a 
-              href="https://www.instagram.com/projeto.passus/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-xs font-bold text-[#3B82F6] hover:text-[#1E3A5F] transition-colors bg-white px-5 py-2.5 rounded-xl border border-stone-200 shadow-sm w-fit"
-            >
-              @projeto.passus
-            </a>
+            <h3 className="font-extrabold text-slate-900 dark:text-white transition-colors">Código Limpo</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed transition-colors">Desenvolvemos arquiteturas modernas, seguras e fáceis de manter pelas equipes técnicas dos projetos.</p>
           </div>
 
-          <div className="flex overflow-x-auto gap-6 pb-6 pt-2 scrollbar-thin snap-x snap-mandatory">
-            {instagramPosts.map((post) => (
-              <div 
-                key={post.id}
-                className="w-72 h-72 md:w-80 md:h-80 shrink-0 bg-white border border-stone-200 rounded-[2rem] shadow-md shadow-stone-200/50 overflow-hidden snap-start relative group transition-all"
-              >
-                <div className="w-full h-full bg-[#F8F6F0] relative flex items-center justify-center">
-                  <img src={post.img} alt={post.tag} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
-                  <span className="absolute top-4 left-4 text-[10px] font-bold uppercase tracking-wider bg-white/90 backdrop-blur-xs px-3 py-1 rounded-lg text-stone-600 border border-stone-200 shadow-sm">
-                    {post.tag}
-                  </span>
-                </div>
+          <div className="bg-white dark:bg-[#111827] p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg flex flex-col items-center text-center gap-4 hover:border-slate-300 dark:hover:border-slate-600 hover:-translate-y-1 transition-all duration-300">
+            <div className="w-14 h-14 bg-teal-50 dark:bg-[#0B7269]/20 rounded-xl flex items-center justify-center text-[#0B7269] dark:text-[#62D5B4] border border-transparent dark:border-[#0B7269]/40 transition-colors">
+              <Users className="w-6 h-6" />
+            </div>
+            <h3 className="font-extrabold text-slate-900 dark:text-white transition-colors">Foco no Humano</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed transition-colors">UX/UI Design pensado para doadores e voluntários, facilitando a navegação e a conversão de apoio.</p>
+          </div>
 
-                <div className="absolute inset-x-6 bottom-6 bg-white/95 backdrop-blur-xs rounded-2xl p-3 flex items-center justify-around text-sm font-bold text-stone-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 border border-stone-200 shadow-md">
-                  <span className="flex items-center gap-1.5"><Heart className="w-4 h-4 text-red-500 fill-red-500 stroke-none" /> {post.likes}</span>
-                  <span className="flex items-center gap-1.5"><MessageCircle className="w-4 h-4 text-stone-400" /> {post.comments}</span>
-                </div>
-              </div>
-            ))}
+          <div className="bg-white dark:bg-[#111827] p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg flex flex-col items-center text-center gap-4 hover:border-slate-300 dark:hover:border-slate-600 hover:-translate-y-1 transition-all duration-300">
+            <div className="w-14 h-14 bg-slate-100 dark:bg-[#0B7269]/20 rounded-xl flex items-center justify-center text-[#0B7269] dark:text-[#62D5B4] border border-transparent dark:border-[#0B7269]/40 transition-colors">
+              <Globe2 className="w-6 h-6" />
+            </div>
+            <h3 className="font-extrabold text-slate-900 dark:text-white transition-colors">Escala Global</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed transition-colors">Tecnologia escalável em nuvem para que projetos locais possam impactar pessoas em qualquer lugar.</p>
           </div>
         </section>
 

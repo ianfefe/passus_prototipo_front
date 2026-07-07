@@ -1,175 +1,124 @@
-import { Link, Outlet, useNavigate } from "react-router";
-import { Search, ShoppingCart, User, Heart, Mail, MapPin, Phone, ArrowUp } from "lucide-react";
-import { useCart } from "../context/CartContext";
+import { Link, Outlet } from "react-router";
+import { Code2, Mail, MapPin, ArrowUp, ChevronRight, Sun, Moon } from "lucide-react";
 import { useState, useEffect } from "react";
-import logoPassus from "@/assets/passus.jpg";
+import logoPropus from "@/assets/propus.png"; 
 
 export function Layout() {
-  const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
-  const { itemCount } = useCart();
   const [showScrollButton, setShowScrollButton] = useState(false);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/produtos?search=${encodeURIComponent(searchQuery)}`);
-    }
-  };
+  // Estado para controlar o Dark Mode (inicia no dark por padrão)
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setShowScrollButton(true);
-      } else {
-        setShowScrollButton(false);
-      }
-    };
+    const handleScroll = () => setShowScrollButton(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    /* NOVO FUNDO GLOBAL: Areia sofisticado que destaca o branco */
-    <div className="min-h-screen bg-[#F4F1EA] flex flex-col relative font-sans text-stone-800">
-      
-      {/* HEADER - Branco puro com borda nítida para destacar do fundo */}
-      <header className="bg-white/95 backdrop-blur-md border-b border-stone-200 sticky top-0 z-50 shadow-sm">
-        <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
-          <Link to="/" className="flex items-center gap-3 flex-shrink-0 hover:opacity-90 transition-opacity">
-            <img src={logoPassus} alt="PASSUS" className="w-10.5 h-10.5 object-contain rounded-full border border-stone-200 shadow-sm" />
-            <span className="font-extrabold tracking-tight text-xl bg-gradient-to-r from-[#1E3A5F] to-[#3B82F6] bg-clip-text text-transparent">
-              PASSUS
-            </span>
-          </Link>
-
-          <form onSubmit={handleSearch} className="flex-1 max-w-md relative hidden sm:block">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar produtos e histórias..."
-              className="w-full px-5 py-2 text-sm rounded-2xl text-stone-800 pr-10 bg-stone-50 border border-stone-200 focus:border-[#3B82F6] focus:bg-white transition-all outline-none font-medium placeholder-stone-400"
-            />
-            <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-[#3B82F6]">
-              <Search className="w-4 h-4" />
-            </button>
-          </form>
-
-          <nav className="flex items-center gap-6 flex-shrink-0">
-            <div className="hidden md:flex items-center gap-6 text-sm font-bold text-stone-600">
-              <Link to="/produtos" className="hover:text-[#F07147] transition-colors">Nossas Meias</Link>
-              <Link to="/outros-projetos" className="hover:text-[#F07147] transition-colors">Rede Parceira</Link>
-              <Link to="/sobre" className="hover:text-[#F07147] transition-colors">Quem Somos</Link>
-              <Link to="/participar" className="hover:text-[#F07147] transition-colors">Como Apoiar</Link>
-            </div>
-
-            <Link to="/carrinho" className="bg-[#F07147] hover:bg-[#d85f37] text-white px-5 py-2.5 rounded-2xl transition-all flex items-center gap-2 text-sm font-bold shadow-md hover:-translate-y-0.5 relative">
-              <ShoppingCart className="w-4 h-4" />
-              <span className="hidden lg:inline">Sua Sacola</span>
-              {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#1E3A5F] text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">
-                  {itemCount}
-                </span>
-              )}
-            </Link>
-
-            <Link to="/login" className="text-stone-500 hover:text-[#1E3A5F] w-9 h-9 rounded-xl flex items-center justify-center bg-stone-50 border border-stone-200 hover:bg-white transition-colors shadow-sm">
-              <User className="w-4 h-4" />
-            </Link>
-          </nav>
-        </div>
-      </header>
-
-      <main className="flex-1">
-        <Outlet />
-      </main>
-
-      {/* FOOTER - Tom de areia escuro para criar a "base" visual da página */}
-      <footer className="bg-[#EBE5D9] text-stone-600 mt-20 border-t border-stone-300">
+    // A classe "dark" aqui é o que ativa o dark mode em todo o site
+    <div className={`${isDarkMode ? "dark" : ""}`}>
+      <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#0B1120] flex flex-col relative font-sans text-slate-800 dark:text-slate-300 transition-colors duration-500">
         
-        <div className="max-w-6xl mx-auto px-6 pt-12 pb-6 border-b border-stone-300/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <img src={logoPassus} alt="PASSUS" className="w-8 h-8 rounded-lg border border-stone-200 shadow-sm bg-white" />
-            <span className="font-black text-xl tracking-tight text-[#1E3A5F]">passus</span>
-            <span className="text-[10px] bg-white text-[#F07147] font-bold px-2 py-0.5 rounded-md border border-stone-200 shadow-sm">PROJETO SOCIAL RECONHECIDO</span>
+        {/* HEADER */}
+        <header className="bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 sticky top-0 z-50 transition-colors duration-500">
+          <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
+            <Link to="/" className="flex items-center gap-3 flex-shrink-0 hover:opacity-80 transition-opacity">
+              <img src={logoPropus} alt="Propus" className="w-10 h-10 object-contain" />
+              <div className="flex flex-col justify-center">
+                <span className="font-black tracking-tight text-xl leading-none text-[#0B7269] dark:text-white mt-1">PROPUS</span>
+                <span className="text-[9px] font-bold text-[#0B7269] dark:text-[#62D5B4] tracking-widest uppercase">Tech for Good</span>
+              </div>
+            </Link>
+
+            <nav className="flex items-center gap-4 md:gap-6 flex-shrink-0">
+              <div className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-600 dark:text-slate-400">
+                <Link to="/" className="hover:text-[#0B7269] dark:hover:text-[#62D5B4] transition-colors">Início</Link>
+                <Link to="/produtos" className="hover:text-[#0B7269] dark:hover:text-[#62D5B4] transition-colors">Cases & Soluções</Link>
+                <Link to="/sobre" className="hover:text-[#0B7269] dark:hover:text-[#62D5B4] transition-colors">Nossa Missão</Link>
+              </div>
+
+              {/* Botão Tema Claro/Escuro */}
+              <button 
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                title="Alternar Tema"
+              >
+                {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+
+              <a href="mailto:contato@propus.tech" className="hidden sm:flex bg-[#0B7269] dark:bg-[#62D5B4] hover:bg-[#085a52] dark:hover:bg-[#4bc19f] text-white dark:text-[#0B1120] px-6 py-2.5 rounded-xl transition-all items-center gap-2 text-sm font-bold shadow-md dark:shadow-[0_0_15px_rgba(98,213,180,0.3)] hover:-translate-y-0.5">
+                Falar com Especialista <ChevronRight className="w-4 h-4" />
+              </a>
+            </nav>
           </div>
-          <p className="text-xs text-stone-500 text-center sm:text-right font-medium">
-            Transformando fios em oportunidades reais de futuro.
-          </p>
-        </div>
+        </header>
 
-        <div className="max-w-6xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <h4 className="font-extrabold text-xs text-[#1E3A5F] uppercase tracking-wider mb-4 border-l-2 border-[#F07147] pl-2">
-                O que Produzimos
-              </h4>
-              <ul className="space-y-2.5 text-sm font-medium text-stone-500">
-                <li><Link to="/produtos" className="hover:text-[#F07147] transition-colors">Coleção de Meias</Link></li>
-                <li><Link to="/produtos" className="hover:text-[#F07147] transition-colors">Linha de Algodão Cru</Link></li>
-                <li><Link to="/produtos" className="hover:text-[#F07147] transition-colors">Produtos Artesanais</Link></li>
-              </ul>
+        <main className="flex-1 relative">
+          {/* Efeito Glow global (aparece mais no dark mode) */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#0B7269] rounded-full blur-[150px] opacity-10 dark:opacity-20 pointer-events-none -z-10 transition-opacity duration-500"></div>
+          <Outlet />
+        </main>
+
+        {/* FOOTER */}
+        <footer className="bg-slate-100 dark:bg-[#05080F] text-slate-600 dark:text-slate-500 mt-20 border-t border-slate-200 dark:border-slate-800 transition-colors duration-500">
+          <div className="max-w-6xl mx-auto px-6 pt-12 pb-6 border-b border-slate-200 dark:border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <img src={logoPropus} alt="Propus" className="w-8 h-8 object-contain" />
+              <span className="font-black text-xl tracking-tight text-slate-900 dark:text-white">PROPUS</span>
             </div>
-
-            <div>
-              <h4 className="font-extrabold text-xs text-[#1E3A5F] uppercase tracking-wider mb-4 border-l-2 border-[#3B82F6] pl-2">
-                Nossa Causa
-              </h4>
-              <ul className="space-y-2.5 text-sm font-medium text-stone-500">
-                <li><Link to="/sobre" className="hover:text-[#F07147] transition-colors">Oficinas Comunitárias</Link></li>
-                <li><Link to="/outros-projetos" className="hover:text-[#F07147] transition-colors">Prestando Contas</Link></li>
-                <li><Link to="/participar" className="hover:text-[#F07147] transition-colors">Seja um Doador</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-extrabold text-xs text-[#1E3A5F] uppercase tracking-wider mb-4 border-l-2 border-stone-400 pl-2">
-                Transparência
-              </h4>
-              <ul className="space-y-2.5 text-sm font-medium text-stone-500">
-                <li><Link to="/sobre" className="hover:text-[#F07147] transition-colors">Quem Governa</Link></li>
-                <li><a href="#" className="hover:text-[#F07147] transition-colors">Estatuto Social</a></li>
-                <li><a href="#" className="hover:text-[#F07147] transition-colors">Políticas de Uso</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-extrabold text-xs text-[#1E3A5F] uppercase tracking-wider mb-4 border-l-2 border-emerald-500 pl-2">
-                Sede Institucional
-              </h4>
-              <ul className="space-y-3 text-xs text-stone-500 font-medium">
-                <li className="flex items-center gap-2"><Mail className="w-4 h-4 text-[#F07147]" /> <span>contato@passus.org.br</span></li>
-                <li className="flex items-center gap-2"><Phone className="w-4 h-4 text-[#F07147]" /> <span>(32) 3333-3333</span></li>
-                <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-[#F07147]" /> <span>Juiz de Fora - Minas Gerais</span></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-stone-300/60 mt-12 pt-8 text-center space-y-3">
-            <p className="text-stone-500 text-xs max-w-2xl mx-auto leading-relaxed">
-              © 2026 Associação Social PASSUS. Todo o lucro obtido na venda de produtos é integralmente revertido para a manutenção e expansão das oficinas de costura e capacitação de nossa comunidade.
+            <p className="text-xs text-center sm:text-right font-medium">
+              Desenvolvendo o futuro digital do Terceiro Setor.
             </p>
-            <div className="text-[11px] text-stone-500 font-bold flex items-center justify-center gap-1.5 bg-white w-fit mx-auto px-4 py-1.5 rounded-xl border border-stone-200 shadow-sm">
-              Feito à mão e com o coração <Heart className="w-3 h-3 text-[#F07147] fill-[#F07147]" /> para gerar autonomia.
+          </div>
+
+          <div className="max-w-6xl mx-auto px-6 py-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div>
+                <h4 className="font-extrabold text-xs text-slate-900 dark:text-white uppercase tracking-wider mb-4 border-l-2 border-[#0B7269] dark:border-[#62D5B4] pl-2">Nossas Soluções</h4>
+                <ul className="space-y-2.5 text-sm font-medium">
+                  <li><Link to="/produtos" className="hover:text-[#0B7269] dark:hover:text-[#62D5B4] transition-colors">E-commerce Solidário</Link></li>
+                  <li><Link to="/produtos" className="hover:text-[#0B7269] dark:hover:text-[#62D5B4] transition-colors">Portais de Transparência</Link></li>
+                  <li><Link to="/produtos" className="hover:text-[#0B7269] dark:hover:text-[#62D5B4] transition-colors">Sistemas de Gestão</Link></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-extrabold text-xs text-slate-900 dark:text-white uppercase tracking-wider mb-4 border-l-2 border-[#62D5B4] dark:border-[#0B7269] pl-2">A Propus</h4>
+                <ul className="space-y-2.5 text-sm font-medium">
+                  <li><Link to="/sobre" className="hover:text-[#0B7269] dark:hover:text-[#62D5B4] transition-colors">Nossa História</Link></li>
+                  <li><Link to="/produtos" className="hover:text-[#0B7269] dark:hover:text-[#62D5B4] transition-colors">Cases de Sucesso</Link></li>
+                  <li><a href="#" className="hover:text-[#0B7269] dark:hover:text-[#62D5B4] transition-colors">Carreiras</a></li>
+                </ul>
+              </div>
+
+              <div className="md:col-span-2">
+                <h4 className="font-extrabold text-xs text-slate-900 dark:text-white uppercase tracking-wider mb-4 border-l-2 border-slate-300 dark:border-slate-700 pl-2">Contato</h4>
+                <ul className="space-y-3 text-xs font-medium">
+                  <li className="flex items-center gap-2"><Mail className="w-4 h-4 text-[#0B7269] dark:text-[#62D5B4]" /> <span>hello@propus.tech</span></li>
+                  <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-[#0B7269] dark:text-[#62D5B4]" /> <span>São Paulo, SP - Atendimento Global</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="border-t border-slate-200 dark:border-slate-800 mt-12 pt-8 text-center space-y-3">
+              <p className="text-slate-500 dark:text-slate-600 text-xs max-w-2xl mx-auto leading-relaxed">
+                © 2026 Propus Technology. Transformando causas sociais através de engenharia de software e design centrado no humano.
+              </p>
             </div>
           </div>
-        </div>
-      </footer>
+        </footer>
 
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 z-50 bg-white hover:bg-stone-50 text-[#F07147] p-2.5 rounded-2xl shadow-md border border-stone-200 transition-all duration-300 ${
-          showScrollButton ? "opacity-100 scale-100 hover:-translate-y-1" : "opacity-0 scale-75 pointer-events-none"
-        }`}
-      >
-        <ArrowUp className="w-5 h-5 stroke-[2.5]" />
-      </button>
-
+        <button
+          onClick={scrollToTop}
+          className={`fixed bottom-6 right-6 z-50 bg-[#0B7269] dark:bg-[#62D5B4] text-white dark:text-[#0B1120] p-2.5 rounded-xl shadow-lg dark:shadow-[0_0_15px_rgba(98,213,180,0.4)] transition-all duration-300 ${
+            showScrollButton ? "opacity-100 scale-100 hover:-translate-y-1" : "opacity-0 scale-75 pointer-events-none"
+          }`}
+        >
+          <ArrowUp className="w-5 h-5 stroke-[2.5]" />
+        </button>
+      </div>
     </div>
   );
 }

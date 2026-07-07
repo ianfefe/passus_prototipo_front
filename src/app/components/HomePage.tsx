@@ -1,168 +1,118 @@
 import { Link } from "react-router";
-import { Sparkles, Star, Heart, ArrowRight, Gift, ShoppingBag, Users } from "lucide-react";
+import { Code2, ArrowRight, Smartphone, Globe, ShieldCheck, Heart, Server, ExternalLink, TrendingUp } from "lucide-react";
 import logoPassus from "@/assets/passus.jpg";
 
-import meia1 from "@/assets/meia1.png";
-import meia2 from "@/assets/meia2.png";
-import meia3 from "@/assets/meia3.png";
-import criancas from "@/assets/criancas.png";
-
 export function HomePage() {
-  const featuredProducts = [
-    { id: 1, name: "Meia Cano Alto Premium", price: "R$ 35,00", image: meia2 },
-    { id: 2, name: "Meia Esportiva Pro", price: "R$ 40,00", image: meia1 },
-    { id: 3, name: "Meia Social Elegance", price: "R$ 30,00", image: meia3 },
-  ];
-
   return (
-    /* Herda o fundo areia global do Layout, não forçamos fundo novo aqui */
-    <div className="font-sans pb-16 selection:bg-[#F07147]/10">
-      <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
+    <div className="font-sans pb-16 selection:bg-[#0B7269]/20 dark:selection:bg-[#62D5B4]/30">
+      <div className="max-w-6xl mx-auto px-6 py-12 space-y-24 relative z-10">
         
-        {/* HERO BANNER - Nítido, branco puro, com sombra e borda marcadas */}
-        <section className="bg-white rounded-[2.5rem] shadow-md shadow-stone-200/60 border border-stone-200 overflow-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-12">
-            
-            <div className="md:col-span-5 bg-gradient-to-br from-[#3B82F6]/15 to-[#F07147]/15 flex items-center justify-center p-10 border-b md:border-b-0 md:border-r border-stone-200 relative overflow-hidden">
-              <div className="text-center relative group">
-                <div className="w-44 h-44 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-2xl border-4 border-[#1E3A5F] transform hover:scale-105 hover:rotate-6 transition-transform duration-300">
-                  <img 
-                    src={logoPassus}
-                    alt="PASSUS" 
-                    className="w-42 h-42 object-contain rounded-full"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      if(e.currentTarget.nextSibling) (e.currentTarget.nextSibling as HTMLElement).style.display = 'block';
-                    }}
-                  />
-                  <span className="text-7xl hidden">🧦</span>
-                </div>
-                <p className="text-xs font-bold text-stone-500 mt-4 tracking-wide">Moda e Transformação Humana</p>
-              </div>
-            </div>
-
-            <div className="md:col-span-7 flex flex-col justify-center p-8 md:p-12 space-y-5">
-              <div className="inline-flex items-center gap-1.5 text-[#F07147] text-xs font-bold uppercase tracking-wider bg-orange-50 px-3 py-1 rounded-xl w-fit border border-orange-100">
-                <Heart className="w-3.5 h-3.5 fill-[#F07147] stroke-none" /> Tecendo Autonomia e Afeto
-              </div>
-              
-              <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">
-                <span className="bg-gradient-to-r from-[#1E3A5F] via-[#2A52BE] to-[#3B82F6] bg-clip-text text-transparent">
-                  Roupas que vestem o corpo e acolhem histórias.
-                </span>
-              </h1>
-              
-              <p className="text-stone-600 leading-relaxed text-sm md:text-base font-medium">
-                Cada par de meias PASSUS carrega a dedicação de pessoas que estão reconstruindo suas trajetórias através da capacitação têxtil profissional e do comércio justo.
-              </p>
-              
-              <div className="flex flex-wrap gap-4 pt-2">
-                <Link to="/produtos" className="bg-[#F07147] hover:bg-[#d85f37] text-white px-6 py-3 rounded-2xl font-bold text-sm transition-all shadow-md flex items-center gap-2 hover:-translate-y-0.5">
-                  <ShoppingBag className="w-4 h-4" /> Conhecer Nossa Produção
-                </Link>
-              </div>
-            </div>
-
+        {/* HERO BANNER */}
+        <section className="text-center space-y-6 max-w-4xl mx-auto pt-10 md:pt-20 pb-8">
+          <div className="inline-flex items-center gap-2 text-[#0B7269] dark:text-[#62D5B4] text-xs font-bold uppercase tracking-wider bg-teal-50 dark:bg-[#0B7269]/20 px-4 py-1.5 rounded-lg border border-teal-100 dark:border-[#0B7269]/40 backdrop-blur-sm transition-colors duration-500">
+            <Code2 className="w-4 h-4" /> Engenharia de Software para o Bem
           </div>
-        </section>
-
-        {/* BANNER EMOCIONAL DAS CRIANÇAS - Com Borda Definida */}
-        <section className="relative w-full h-[350px] md:h-[500px] rounded-[2.5rem] overflow-hidden shadow-md shadow-stone-200/60 border border-stone-200 group bg-stone-100 flex items-center justify-center">
-          <img 
-            src={criancas} 
-            alt="Crianças e comunidade do projeto PASSUS"
-            className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000 ease-out"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-              const parent = e.currentTarget.parentElement;
-              if (parent) {
-                const placeholder = document.createElement('div');
-                placeholder.className = 'absolute inset-0 flex flex-col items-center justify-center text-stone-400 font-bold bg-white';
-                placeholder.innerHTML = '<span class="text-4xl mb-2">📸</span><span>Espaço para a foto das crianças (/criancas.jpg)</span>';
-                parent.appendChild(placeholder);
-              }
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1E3A5F] via-[#1E3A5F]/40 to-transparent flex flex-col justify-end p-8 md:p-14">
-            <div className="inline-flex items-center gap-1.5 text-amber-200 text-xs font-bold uppercase tracking-wider mb-3">
-              <Users className="w-4 h-4" /> Mais que um produto
-            </div>
-            <h2 className="text-white text-3xl md:text-5xl font-black max-w-3xl leading-tight tracking-tight">
-              O futuro que estamos construindo juntos, um passo de cada vez.
-            </h2>
-          </div>
-        </section>
-
-        {/* BLOCO DE IMPACTO SOCIAL - Separado do fundo areia */}
-        <section className="bg-white border border-stone-200 shadow-md shadow-stone-200/50 rounded-3xl p-8 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-          <div className="flex gap-4 items-center md:col-span-2">
-            <div className="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center border border-orange-100 text-[#F07147] shrink-0 shadow-sm">
-              <Gift className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-extrabold text-stone-900 text-lg">Por que sua escolha importa?</h3>
-              <p className="text-stone-600 text-xs md:text-sm mt-0.5 leading-relaxed font-medium">
-                O PASSUS é uma iniciativa sem fins lucrativos. Todo o resultado financeiro obtido com as vendas é integralmente reinvestido em maquinários e capacitação para os polos produtivos.
-              </p>
-            </div>
-          </div>
-          <div className="bg-[#F8F6F0] rounded-2xl p-4 border border-stone-200 text-center shadow-inner">
-            <span className="block text-2xl font-black text-[#1E3A5F]">100%</span>
-            <span className="text-[11px] uppercase tracking-wider font-bold text-stone-500">Destinação Social</span>
-          </div>
-        </section>
-
-        {/* VITRINE DE PRODUTOS - Cards brancos sobre fundo areia = Contraste */}
-        <section className="space-y-8">
-          <div className="flex items-center justify-between border-b border-stone-200 pb-4">
-            <h2 className="text-xl md:text-2xl font-black text-stone-900 tracking-tight">
-              Modelos Feitos com Amor
-            </h2>
-            <Link to="/produtos" className="text-sm font-bold text-[#F07147] hover:text-[#d85f37] flex items-center gap-1 transition-colors">
-              Ver Coleção Completa <ArrowRight className="w-4 h-4" />
+          
+          <h1 className="text-4xl md:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.1] transition-colors duration-500">
+            Código que transforma. Tecnologia para o <span className="bg-gradient-to-r from-[#0B7269] to-[#62D5B4] bg-clip-text text-transparent dark:drop-shadow-[0_0_20px_rgba(98,213,180,0.3)]">Terceiro Setor.</span>
+          </h1>
+          
+          <p className="text-slate-600 dark:text-slate-400 text-base md:text-xl font-medium leading-relaxed max-w-2xl mx-auto transition-colors duration-500">
+            A Propus constrói e-commerces, sistemas de gestão e portais de transparência que escalam o impacto de ONGs, fundações e projetos sociais.
+          </p>
+          <div className="flex items-center justify-center gap-4 pt-6">
+            <Link to="/produtos" className="bg-[#0B7269] dark:bg-[#62D5B4] hover:bg-[#085a52] dark:hover:bg-[#4bc19f] text-white dark:text-[#0B1120] px-8 py-4 rounded-xl font-bold text-sm transition-all shadow-lg dark:shadow-[0_0_20px_rgba(98,213,180,0.3)] hover:-translate-y-0.5">
+              Ver Nossos Cases
             </Link>
           </div>
+        </section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {featuredProducts.map((product) => (
-              <Link
-                key={product.id}
-                to={`/produto/${product.id}`}
-                /* Aqui a mágica do contraste: bg-white, border forte e shadow-md */
-                className="group bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-md shadow-stone-200/50 hover:shadow-lg transition-all flex flex-col hover:-translate-y-1"
-              >
-                <div className="w-full h-56 bg-[#F8F6F0] flex items-center justify-center relative p-4 overflow-hidden border-b border-stone-200">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-full object-contain drop-shadow-md transform group-hover:scale-105 transition-transform duration-300" 
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      const parent = e.currentTarget.parentElement;
-                      if (parent) {
-                        const label = document.createElement('span');
-                        label.className = 'text-stone-400 font-bold text-xs bg-white/80 px-2 py-1 rounded-lg border border-stone-200';
-                        label.innerText = '🧦 Visualizar Meia';
-                        parent.appendChild(label);
-                      }
-                    }}
-                  />
-                </div>
-                
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                  <div>
-                    <h3 className="text-stone-800 font-extrabold text-base group-hover:text-[#F07147] transition-colors">
-                      {product.name}
-                    </h3>
-                    <p className="text-[#1E3A5F] font-black text-lg mt-0.5">{product.price}</p>
-                  </div>
-                  
-                  <div className="w-full py-2.5 bg-stone-50 text-[#1E3A5F] group-hover:bg-[#1E3A5F] group-hover:text-white border border-stone-200 text-center font-bold text-xs uppercase tracking-wider rounded-2xl transition-all shadow-sm">
-                    Ver de Perto
-                  </div>
-                </div>
+        {/* CASE DE DESTAQUE: PROJETO PASSUS */}
+        <section className="bg-white dark:bg-[#111827] rounded-[2.5rem] shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden relative transition-colors duration-500">
+          <div className="hidden dark:block absolute top-0 right-0 w-96 h-96 bg-[#0B7269] blur-[120px] opacity-20 pointer-events-none"></div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 relative z-10">
+            {/* Lado Esquerdo - Descrição */}
+            <div className="p-8 md:p-14 flex flex-col justify-center space-y-6">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#0B7269] dark:text-[#0B1120] bg-teal-50 dark:bg-[#62D5B4] px-3 py-1 rounded-md w-fit">Case de Sucesso</span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight">E-commerce Solidário: Projeto Passus</h2>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+                Desenvolvemos do zero a plataforma de vendas do Projeto Passus. Uma infraestrutura robusta de e-commerce integrada com gateways de doação e cálculo de frete, permitindo que a associação vendesse suas meias artesanais para todo o Brasil.
+              </p>
+              <ul className="space-y-3 pt-2">
+                <li className="flex items-center gap-3 text-sm font-bold text-slate-700 dark:text-slate-300"><ShieldCheck className="w-5 h-5 text-[#0B7269] dark:text-[#62D5B4]" /> Checkout Seguro & Transparente</li>
+                <li className="flex items-center gap-3 text-sm font-bold text-slate-700 dark:text-slate-300"><Smartphone className="w-5 h-5 text-[#0B7269] dark:text-[#62D5B4]" /> Design Mobile-First Performance</li>
+              </ul>
+              <Link to="/produtos" className="text-[#0B7269] dark:text-[#62D5B4] font-bold text-sm flex items-center gap-1 hover:text-[#085a52] dark:hover:text-white transition-colors pt-4">
+                Explorar detalhes técnicos <ArrowRight className="w-4 h-4" />
               </Link>
-            ))}
+            </div>
+            
+            {/* Lado Direito - Mini Dashboard de Informações */}
+            <div className="bg-slate-50 dark:bg-[#0B1120]/50 p-8 md:p-14 flex items-center justify-center border-l border-slate-100 dark:border-slate-800/50 transition-colors duration-500">
+              
+              <div className="w-full max-w-sm bg-white dark:bg-[#1E293B] rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700 p-6 flex flex-col gap-6 hover:scale-105 transition-all duration-500">
+                
+                {/* Cabeçalho do Card */}
+                <div className="flex items-center gap-4 border-b border-slate-100 dark:border-slate-700 pb-4">
+                  <div className="w-14 h-14 bg-slate-50 dark:bg-white rounded-xl flex items-center justify-center shadow-inner shrink-0">
+                    <img src={logoPassus} alt="Passus Case" className="w-10 h-10 object-contain" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-slate-900 dark:text-white text-base leading-tight">passus.org.br</h3>
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                      <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Sistema Operante</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Métricas e Informações */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-teal-50 dark:bg-[#0B1120] p-3 rounded-xl border border-teal-100 dark:border-slate-700">
+                    <Heart className="w-4 h-4 text-[#0B7269] dark:text-[#62D5B4] mb-2" />
+                    <p className="text-[10px] font-bold text-slate-500 uppercase">Impacto</p>
+                    <p className="font-black text-slate-800 dark:text-white text-sm">100% Social</p>
+                  </div>
+                  <div className="bg-slate-50 dark:bg-[#0B1120] p-3 rounded-xl border border-slate-100 dark:border-slate-700">
+                    <TrendingUp className="w-4 h-4 text-[#0B7269] dark:text-[#62D5B4] mb-2" />
+                    <p className="text-[10px] font-bold text-slate-500 uppercase">Tecnologia</p>
+                    <p className="font-black text-slate-800 dark:text-white text-sm">React & Vite</p>
+                  </div>
+                </div>
+
+                {/* Botão de Link Externo */}
+                <a 
+                  href="https://www.instagram.com/projeto.passus/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full bg-slate-900 dark:bg-[#62D5B4] hover:bg-slate-800 dark:hover:bg-[#4bc19f] text-white dark:text-[#0B1120] font-bold text-sm py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md"
+                >
+                  Visitar Site do Projeto <ExternalLink className="w-4 h-4" />
+                </a>
+
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* NOSSAS VERTICAIS DE SOLUÇÃO */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-md dark:shadow-lg space-y-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-1 transition-all group">
+            <Globe className="w-8 h-8 text-[#0B7269] dark:text-[#62D5B4] group-hover:scale-110 transition-transform" />
+            <h3 className="font-extrabold text-slate-900 dark:text-white text-lg transition-colors">E-commerces B2C</h3>
+            <p className="text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed transition-colors">Lojas virtuais otimizadas para ONGs venderem produtos sociais e escalarem sua captação de recursos.</p>
+          </div>
+          <div className="bg-[#0B7269] border border-[#0B7269] rounded-3xl p-8 shadow-lg dark:shadow-[0_0_30px_rgba(11,114,105,0.2)] space-y-4 text-white hover:-translate-y-1 transition-transform group">
+            <Server className="w-8 h-8 text-[#62D5B4] group-hover:scale-110 transition-transform" />
+            <h3 className="font-extrabold text-white text-lg">Sistemas de Gestão</h3>
+            <p className="text-teal-50 text-sm font-medium leading-relaxed">ERPs customizados para controle de voluntariado, gestão de alunos e acompanhamento de doações.</p>
+          </div>
+          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-md dark:shadow-lg space-y-4 hover:border-slate-300 dark:hover:border-slate-700 hover:-translate-y-1 transition-all group">
+            <ShieldCheck className="w-8 h-8 text-[#0B7269] dark:text-[#62D5B4] group-hover:scale-110 transition-transform" />
+            <h3 className="font-extrabold text-slate-900 dark:text-white text-lg transition-colors">Portais Transparência</h3>
+            <p className="text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed transition-colors">Plataformas de dados abertos para que investidores acompanhem o impacto real de cada centavo doado.</p>
           </div>
         </section>
 
