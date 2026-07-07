@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useLocation } from "react-router";
 import { Code2, Mail, MapPin, ArrowUp, ChevronRight, Sun, Moon } from "lucide-react";
 import { useState, useEffect } from "react";
 import logoPropus from "@/assets/propus.png"; 
@@ -7,6 +7,15 @@ export function Layout() {
   const [showScrollButton, setShowScrollButton] = useState(false);
   // Estado para controlar o Dark Mode (inicia no dark por padrão)
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant" // Use "smooth" se quiser um efeito de rolagem suave
+    });
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => setShowScrollButton(window.scrollY > 400);
@@ -48,9 +57,9 @@ export function Layout() {
                 {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
 
-              <a href="mailto:contato@propus.tech" className="hidden sm:flex bg-[#0B7269] dark:bg-[#62D5B4] hover:bg-[#085a52] dark:hover:bg-[#4bc19f] text-white dark:text-[#0B1120] px-6 py-2.5 rounded-xl transition-all items-center gap-2 text-sm font-bold shadow-md dark:shadow-[0_0_15px_rgba(98,213,180,0.3)] hover:-translate-y-0.5">
-                Falar com Especialista <ChevronRight className="w-4 h-4" />
-              </a>
+              <Link to="/contato" className="hidden sm:flex bg-[#0B7269] dark:bg-[#62D5B4] hover:bg-[#085a52] dark:hover:bg-[#4bc19f] text-white dark:text-[#0B1120] px-6 py-2.5 rounded-xl transition-all items-center gap-2 text-sm font-bold shadow-md dark:shadow-[0_0_15px_rgba(98,213,180,0.3)] hover:-translate-y-0.5">
+                Entrar em contato <ChevronRight className="w-4 h-4" />
+              </Link>
             </nav>
           </div>
         </header>
@@ -97,7 +106,7 @@ export function Layout() {
                 <h4 className="font-extrabold text-xs text-slate-900 dark:text-white uppercase tracking-wider mb-4 border-l-2 border-slate-300 dark:border-slate-700 pl-2">Contato</h4>
                 <ul className="space-y-3 text-xs font-medium">
                   <li className="flex items-center gap-2"><Mail className="w-4 h-4 text-[#0B7269] dark:text-[#62D5B4]" /> <span>hello@propus.tech</span></li>
-                  <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-[#0B7269] dark:text-[#62D5B4]" /> <span>São Paulo, SP - Atendimento Global</span></li>
+                  <li className="flex items-center gap-2"><MapPin className="w-4 h-4 text-[#0B7269] dark:text-[#62D5B4]" /> <span>Juiz de Fora, MG - Atendimento Global</span></li>
                 </ul>
               </div>
             </div>
