@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Heart, ArrowRight, ArrowUpRight, Gift, ShoppingBag, Users, Scissors } from "lucide-react";
+import { Heart, HeartHandshake, ArrowRight, ArrowUpRight, Gift, ShoppingBag, Users, Scissors } from "lucide-react";
 import {
   motion,
   useScroll,
@@ -12,7 +12,6 @@ import { useRef } from "react";
 import { Reveal, RevealGroup, RevealItem } from "./motion/Reveal";
 import { TiltCard } from "./motion/TiltCard";
 import logoPassus from "@/assets/passus.jpg";
-
 import meia1 from "@/assets/meia1.png";
 import meia2 from "@/assets/meia2.png";
 import meia3 from "@/assets/meia3.png";
@@ -285,8 +284,7 @@ export function HomePage() {
               <div>
                 <h3 className="font-display font-black text-navy text-xl md:text-2xl">Por que sua escolha importa?</h3>
                 <p className="text-navy/70 text-sm mt-1.5 leading-relaxed text-pretty">
-                  O PASSUS é uma iniciativa sem fins lucrativos. Todo o resultado financeiro obtido com as vendas é
-                  integralmente reinvestido em maquinários e capacitação para os polos produtivos.
+                  O PASSUS é uma iniciativa sem fins lucrativos. Acreditamos que suas escolhas podem transformar realidades. Por isso, parte do valor de todas as vendas da nossa plataforma é destinada a financiar projetos que causam impacto social verdadeiro nas comunidades.
                 </p>
               </div>
             </div>
@@ -297,7 +295,7 @@ export function HomePage() {
             >
               <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "repeating-linear-gradient(45deg, #fff 0 1px, transparent 1px 12px)" }} />
               <span className="relative block font-display text-5xl font-black text-white">100%</span>
-              <span className="relative text-[11px] uppercase tracking-[0.2em] font-bold text-amber-200">Destinação social</span>
+              <span className="relative text-[11px] uppercase tracking-[0.2em] font-bold text-amber-200">Comprometidos</span>
             </motion.div>
           </section>
         </Reveal>

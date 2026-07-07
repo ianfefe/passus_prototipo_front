@@ -12,6 +12,7 @@ export function Layout() {
   const [searchQuery, setSearchQuery] = useState("");
   const { itemCount } = useCart();
   const [showScrollButton, setShowScrollButton] = useState(false);
+  const { pathname } = useLocation();
 
   // Barra de progresso da rolagem (fio coral que "costura" a página)
   const { scrollYProgress } = useScroll();
@@ -30,13 +31,21 @@ export function Layout() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant" // Use "smooth" se quiser um efeito de rolagem suave
+    });
+  }, [pathname]);
+
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const navLinks = [
     { to: "/produtos", label: "Nossas Meias" },
-    { to: "/outros-projetos", label: "Rede Parceira" },
     { to: "/sobre", label: "Quem Somos" },
     { to: "/participar", label: "Como Apoiar" },
+    { to: "/outros-projetos", label: "Outras Ações Sociais" },
   ];
 
   const isActive = (to: string) => location.pathname === to;

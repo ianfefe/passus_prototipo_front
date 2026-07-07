@@ -3,6 +3,8 @@ import { ArrowUpRight, Heart } from "lucide-react";
 import cicloc from "@/assets/cicloc.png";
 import tecendo from "@/assets/tecendoLacos.png";
 import tec from "@/assets/tec.png";
+import { Card, CardContent } from "@/app/components/ui/card";
+import { Badge } from "@/app/components/ui/badge";
 
 export function OtherProjectsPage() {
   // Array de projetos com imagens e cores de tags dinâmicas
@@ -101,6 +103,80 @@ export function OtherProjectsPage() {
               </a>
             </div>
           ))}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          {/* Card Ação Venezuela */}
+          <a 
+            href="https://www.paraquemdoar.com.br/hub/venezuela?ref=home_banner" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="block group relative overflow-hidden rounded-[2.0rem] border border-slate-200 dark:border-slate-800 hover:border-blue-500 transition-all duration-300 shadow-sm hover:shadow-xl"
+          >
+            {/* Imagem de Fundo (Unsplash placeholder) */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+              style={{ backgroundImage: "url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800&auto=format&fit=crop')" }}
+            />
+            {/* Overlay escuro para dar leitura ao texto */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/30 to-slate-900/30" />
+
+            <CardContent className="relative z-10 p-6 flex flex-col h-full justify-end min-h-[280px] border-0 bg-transparent">
+              <div className="flex justify-between items-start mb-auto">
+                <Badge variant="secondary" className="bg-blue-500/20 text-blue-100 border border-blue-500/30 backdrop-blur-md">
+                  Ação Patrocinada
+                </Badge>
+                {/* Logo da TV Globo */}
+                <img 
+                  src="https://cdn.guiademarcas.globo/capa_tvglobo_n1tynUD.png" 
+                  alt="Parceria TV Globo" 
+                  className="h-16 w-26 opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 drop-shadow-md"
+                />
+              </div>
+              
+              <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-blue-300 transition-colors mt-6 drop-shadow-md">
+                Apoio a Refugiados
+              </h3>
+              <p className="text-slate-200 text-sm leading-relaxed drop-shadow">
+                Ajude a garantir direitos básicos, alimentação e dignidade para famílias venezuelanas em situação de vulnerabilidade.
+              </p>
+            </CardContent>
+          </a>
+
+          {/* Card Doe Gols */}
+          <a 
+            href="https://www.paraquemdoar.com.br/hub/doegols?ref=home_banner" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="block group relative overflow-hidden rounded-[2.0rem] border border-slate-200 dark:border-slate-800 hover:border-emerald-500 transition-all duration-300 shadow-sm hover:shadow-xl"
+          >
+            {/* Imagem de Fundo (Unsplash placeholder focada em futebol/chuteira) */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+              style={{ backgroundImage: "url('https://live.staticflickr.com/3019/2701038251_050ebb4a9a_z.jpg')" }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/30 to-slate-900/30" />
+
+            <CardContent className="relative z-10 p-6 flex flex-col h-full justify-end min-h-[280px] border-0 bg-transparent">
+              <div className="flex justify-between items-start mb-auto">
+                <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-100 border border-emerald-500/30 backdrop-blur-md">
+                  Ação Patrocinada
+                </Badge>
+                {/* Logo da TV Globo */}
+                <img 
+                  src="https://cdn.guiademarcas.globo/capa_tvglobo_n1tynUD.png" 
+                  alt="Parceria TV Globo" 
+                  className="h-16 w-26 opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 drop-shadow-md"
+                />
+              </div>
+              
+              <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-emerald-300 transition-colors mt-6 drop-shadow-md">
+                Projeto Doe Gols
+              </h3>
+              <p className="text-slate-200 text-sm leading-relaxed drop-shadow">
+                Transformando a paixão nacional pelo futebol em calçados para crianças e adolescentes de comunidades carentes.
+              </p>
+            </CardContent>
+          </a>
         </div>
 
       </div>

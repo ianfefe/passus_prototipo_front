@@ -109,8 +109,8 @@ export function ProductDetailPage() {
               <div className="bg-[#F8F6F0] rounded-2xl p-4 border border-stone-200 shadow-sm flex flex-col gap-2">
                 <Users className="w-5 h-5 text-[#F07147]" />
                 <div>
-                  <h4 className="font-extrabold text-stone-800 text-xs uppercase tracking-wider">Comércio Justo</h4>
-                  <p className="text-[11px] text-stone-500 leading-relaxed mt-0.5 font-medium">100% da renda financia as oficinas locais de capacitação.</p>
+                  <h4 className="font-extrabold text-stone-800 text-xs uppercase tracking-wider">Comércio Solidário</h4>
+                  <p className="text-[11px] text-stone-500 leading-relaxed mt-0.5 font-medium">Sua compra financia as oficinas locais de capacitação.</p>
                 </div>
               </div>
               <div className="bg-[#F8F6F0] rounded-2xl p-4 border border-stone-200 shadow-sm flex flex-col gap-2">
